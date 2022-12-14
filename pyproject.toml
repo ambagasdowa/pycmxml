@@ -4,7 +4,7 @@ requires = ["setuptools", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "scdbf"
+name = "pycmxml"
 version = "0.0.1"
 description = "fecth for cfdi_xml packed as zip and store in db"
 authors = [

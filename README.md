@@ -23,6 +23,12 @@ This is a small utility for download xml zipped from a repository and store in a
 
 # Install
 
+python3 -m pip install git+ssh://git@github.com:ambagasdowa/pycmxml.git
+
+
+python3 -m pip install git+https://github.com/ambagasdowa/pycmxml.git
+
+
 git clone
 
 # Usage
