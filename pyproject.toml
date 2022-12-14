@@ -4,22 +4,35 @@ requires = ["setuptools", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "pycmxml"
+name = "scdbf"
 version = "0.0.1"
-description = "cat for cfdi_xml files and store in db"
+description = "fecth for cfdi_xml packed as zip and store in db"
+authors = [
+  { name="Jesus Baizabal", email="baizabal.jesus@gmail.com" },
+]
 readme = "README.md"
 requires-python = ">=3.5"
-keywords = ["cat", "xml","cfdi","sat","hacienda","mx","cartaporte","cfdi40","cfdi 4.0"]
+keywords = ["cat", "xml","cfdi","sat","hacienda","mx","cartaporte","cfdi40","cfdi 4.0" ]
 license = {text = "MIT"}
 classifiers = [
-    "Framework :: -",
     "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
 ]
 dependencies = [
     "pyodbc","rich","pycfdi_transform",
 ]
+[project.urls]
+"Homepage" = "https://github.com/ambagasdowa/pycmxml"
+"Bug Tracker" = "https://github.com/ambagasdowa/pycmxml/issues"
 [project.scripts]
-cli-name = "pycmxml.pycmxml:main"
+scdbf = "pycmxml.pycmxml:main"
+
+[tool.setuptools]
+package-dir = {"" = "./"}  # directory containing all the packages (e.g.  src/mypkg1, src/mypkg2)
+[tool.setuptools.packages]
+find = {}  # Scanning implicit namespaces is active by default
+
 #dynamic = ["version"]
 
 #[project.optional-dependencies]
