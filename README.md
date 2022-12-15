@@ -27,11 +27,14 @@ This is a small utility for download xml zipped from a repository and store in a
 git clone https://github.com/ambagasdowa/pycmxml.git
 python3 -m pip install pycmxml
 ```
-OR 
+
+OR
+
 ```bash
 python3 -m pip install git+https://github.com/ambagasdowa/pycmxml.git
 ```
- for a specific branch or tag add with @
+
+for a specific branch or tag add with @
 
 ```bash
  python3 -m pip install git+https://github.com/ambagasdowa/pycmxml.git@v3.1.4
@@ -41,9 +44,10 @@ python3 -m pip install git+https://github.com/ambagasdowa/pycmxml.git
 
 > in dir .local/lib/python3.9/site-packages/pycmxml/config/
 
-  mv config_template.py config.py
+mv config_template.py config.py
 
- edit according to your needs 
+edit according to your needs
+
 ```python
 configuration = {
     "db_connection": {
@@ -81,19 +85,21 @@ configuration = {
 ```
 
 # Usage
-  
-  pycmxml --help
+
+pycmxml --help
 
 # Example
 
-> dates : set the date for process files inputs can be --dates={[date:range] , [date0,date1] or [date]}  (default: yesterday)')
+> dates : set the date for process files inputs can be --dates={[date:range] , [date0,date1] or [date]} (default: yesterday)')
 
- get a range of dates 
+get a range of dates
+
 ```bash
   pycmxml --dates='2022-12-01:2022-12-15'
 ```
 
 read from config.py
+
 ```bash
   pycmxml --config
 ```
@@ -102,3 +108,4 @@ read from config.py
 
 - Build functions for print messages and hide them
 - Poperly handle empty zip file when are in a loop
+- Set an option for trigger the last procedure

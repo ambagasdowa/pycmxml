@@ -103,7 +103,10 @@ def main():
 
     for dt in expanded_dates:
         print("[blue] Execute with fecha : [blue]"+str(dt))
-        prf.parse(cursor, config, fecha=dt)
+        try:
+            prf.parse(cursor, config, fecha=dt)
+        except FileNotFoundError:
+            pass
     cursor.close()
 
 

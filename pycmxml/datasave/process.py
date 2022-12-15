@@ -90,7 +90,6 @@ def parse(cursor,config,fecha):
             zip_ref.extractall(unpack)
     except zipfile.BadZipfile:
         print("[red] zip file : "+pack+filename+" from provider with errors , try again ...[red]")
-        exit()
 
     # One with have the files 
     def get_files(path):
