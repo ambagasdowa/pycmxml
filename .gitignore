@@ -129,5 +129,5 @@ dmypy.json
 .pyre/
 
 # Config
-src/pycmxml/config/config.py
+pycmxml/config/config.py
 
