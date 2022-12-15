@@ -36,10 +36,10 @@ import hashlib
 
 ## Inner libs
 
-import config.config as conf
-import utils.utils as lib
+import pycmxml.config.config as conf
+import pycmxml.utils.utils as lib
 #import connection.db as db
-import datasave.save as dts
+import pycmxml.datasave.save as dts
 
 
 
