@@ -98,7 +98,7 @@ read from config.py
   pycmxml --config
 ```
 
-
 # Todo
 
-> Build functions for print messages and hide them
+- Build functions for print messages and hide them
+- Poperly handle empty zip file when are in a loop

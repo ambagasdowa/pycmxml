@@ -20,7 +20,7 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
-    "pyodbc","rich","pycfdi_transform",
+    "pyodbc","rich","pycfdi_transform","httpie"
 ]
 [project.urls]
 "Homepage" = "https://github.com/ambagasdowa/pycmxml"
