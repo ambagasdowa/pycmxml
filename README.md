@@ -31,9 +31,17 @@ OR
 ```bash
 python3 -m pip install git+https://github.com/ambagasdowa/pycmxml.git
 ```
+ for a specific branch or tag add with @
+
+```bash
+ python3 -m pip install git+https://github.com/ambagasdowa/pycmxml.git@v3.1.4
+```
+
 # Config
 
-  mv config_sample.py config.py
+> in dir .local/lib/python3.9/site-packages/pycmxml/config/
+
+  mv config_template.py config.py
 
  edit according to your needs 
 ```python
@@ -58,7 +66,7 @@ configuration = {
         "representacion": "XML",  # ** XML,PDF,ACUSE
         "pageSize": "100",  # ** [0-100] default 50
         # same as params, default is ? that means:yesterday
-        "fecha": '2022-12-06:2022-12-12',
+        "fecha": '2022-12-06,2022-12-12',
         #        "fecha": '2022-12-06',
         "fechaInicial": '?',  # yyyy-mm-dd
         "fechaFinal": '?',  # yyyy-mm-dd
