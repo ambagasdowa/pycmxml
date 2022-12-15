@@ -10,7 +10,7 @@ import urllib
 import os
 import sys
 import subprocess
-
+import importlib.metadata
 # importing element tree
 # under the alias of ET
 import xml.etree.ElementTree as ET
