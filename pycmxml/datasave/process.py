@@ -332,7 +332,7 @@ def parse(cursor,config,fecha):
     if not files_ids:
         print("Nothing to save ...")
     else:
-        ## Run db Procedure for info treatments and pass the id's files  as params 
+        ## TODO Run db Procedure for info treatments and pass the id's files  as params 
         print(files_ids)
 
 #    cursor.close()

@@ -107,5 +107,4 @@ read from config.py
 # Todo
 
 - Build functions for print messages and hide them
-- Poperly handle empty zip file when are in a loop
 - Set an option for trigger the last procedure
