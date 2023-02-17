@@ -5,10 +5,10 @@
 # TODO buiild as a package
 
 #=== === === === === === === ===  Import Section  === === === === === === === === #
+import sys
 import pyodbc
 import urllib
 import os
-import sys
 import subprocess
 import importlib.metadata
 # importing element tree
