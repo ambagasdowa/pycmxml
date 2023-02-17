@@ -1,0 +1,13 @@
+<soapenv:Envelope
+	xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+	xmlns:ws="http://webservice.web.integracao.sascar.com.br/">
+		<soapenv:Header />
+		<soapenv:Body>
+				<ws:obterVeiculos>
+					<usuario>GST.GR</usuario>
+					<senha>GRGST.2022</senha>
+					<quantidade>3000</quantidade>
+					<idVeiculo>0</idVeiculo>
+				</ws:obterVeiculos>
+		</soapenv:Body>
+</soapenv:Envelope>

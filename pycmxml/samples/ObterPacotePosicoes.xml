@@ -1,0 +1,12 @@
+<soapenv:Envelope
+	xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+	xmlns:ws="http://webservice.web.integracao.sascar.com.br/">
+		<soapenv:Header />
+		<soapenv:Body>
+				<ws:obterPacotePosicoes>
+					<usuario>GST.GR</usuario>
+					<senha>GRGST.2022</senha>
+					<quantidade>3000</quantidade>
+				</ws:obterPacotePosicoes>
+		</soapenv:Body>
+</soapenv:Envelope>

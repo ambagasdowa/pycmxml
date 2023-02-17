@@ -51,6 +51,14 @@ import pycmxml.connection.db as db
 import pycmxml.datasave.save as dts
 import pycmxml.datasave.process as prf
 
+x = ["cmex", "michelin", "Jupiter", "Neptune", "Earth", "Venus"]
+
+
+def get_indexes(x, xs): return [i for (
+    y, i) in zip(xs, range(len(xs))) if x == y]
+
+# print(get_indexes("Earth",x))
+
 
 def get_args():
     """Get CLI arguments and options"""
@@ -66,6 +74,9 @@ def get_args():
                         help='set the date for process files inputs can be --dates={[date:range] , [date0,date1] or [date]}  (default: yesterday)')
     parser.add_argument('-c', '--config', action='store_true',
                         help='takes dates from configuration values'
+                        )
+    parser.add_argument('-x', '--application',
+                        help='Set the application to execute'
                         )
     # parser.add_argument('--version', action='version',
     #                     version='%(prog)s {version}'.format(version=__version__))
@@ -89,25 +100,37 @@ def main():
 
     print(args)
 
-    if(args.config == False):
-        print("[red]Config[red] : [cyan]off[cyan]")
-        fecha = args.dates
-    else:
-        print("[red]Config[red] : [cyan]on[cyan]")
-        if (config['service_params']['fecha'] == '?'):
-            fecha = (str(date.today() - timedelta(days=1)))
-        else:
-            fecha = str(config['service_params']['fecha'])
+    if (args.application in x):
+        print(f"[cyan]Set app to cursor: [cyan]")
+        # then execute prf or
+        if (arg.application == 'cmex'):
 
-    expanded_dates = lib.date_expand(fecha)
+            if(args.config == False):
+                print("[red]Config[red] : [cyan]off[cyan]")
+                fecha = args.dates
+            else:
+                print("[red]Config[red] : [cyan]on[cyan]")
+                if (config['service_params']['fecha'] == '?'):
+                    fecha = (str(date.today() - timedelta(days=1)))
+                else:
+                    fecha = str(config['service_params']['fecha'])
 
-    for dt in expanded_dates:
-        print("[blue] Execute with fecha : [blue]"+str(dt))
-        try:
-            prf.parse(cursor, config, fecha=dt)
-        except FileNotFoundError:
-            pass
-    cursor.close()
+            expanded_dates = lib.date_expand(fecha)
+
+            for dt in expanded_dates:
+                print("[blue] Execute with fecha : [blue]"+str(dt))
+                try:
+                    prf.parse(cursor, config, fecha=dt)
+                except FileNotFoundError:
+                    pass
+            cursor.close()
+
+        if (arg.application == 'michelin'):
+            print(f"[red]Execute[red]: [cyan]Michelin app[cyan]")
+            # try:
+            #     mit.exec()
+            # except:
+            #     pass
 
 
 if __name__ == '__main__':

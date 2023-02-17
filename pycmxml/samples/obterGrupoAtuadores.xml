@@ -1,0 +1,11 @@
+<soapenv:Envelope
+	xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+	xmlns:ws="http://webservice.web.integracao.sascar.com.br/">
+		<soapenv:Header />
+		<soapenv:Body>
+				<ws:obterGrupoAtuadores>
+					<usuario>GST.GR</usuario>
+					<senha>GRGST.2022</senha>
+				</ws:obterGrupoAtuadores>
+		</soapenv:Body>
+</soapenv:Envelope>
