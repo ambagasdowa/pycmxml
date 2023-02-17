@@ -44,7 +44,7 @@ import argparse
 
 
 # Inner libs
-
+# libs inherit for cmex
 import pycmxml.config.config as conf
 import pycmxml.utils.utils as lib
 import pycmxml.connection.db as db
@@ -64,19 +64,19 @@ def get_args():
     """Get CLI arguments and options"""
     parser = argparse.ArgumentParser(
         prog='pycmxml',
-        description='small utility to download zipped xml files and parse contents to a db'
+        description='Small utility to download zipped xml files and parse contents to a db'
     )
     # parser.add_argument('input')
     # parser.add_argument('output', nargs='?', default=None)
 
     parser.add_argument('-d', '--dates',
                         default=str(date.today() - timedelta(days=1)),
-                        help='set the date for process files inputs can be --dates={[date:range] , [date0,date1] or [date]}  (default: yesterday)')
+                        help='Set the date for process files inputs can be --dates={[date:range] , [date0,date1] or [date]}  (default: yesterday)')
     parser.add_argument('-c', '--config', action='store_true',
-                        help='takes dates from configuration values'
+                        help='Takes dates from configuration values'
                         )
     parser.add_argument('-x', '--application',
-                        help='Set the application to execute'
+                        help='Set the application to execute [cmex, michelin, ... ]'
                         )
     # parser.add_argument('--version', action='version',
     #                     version='%(prog)s {version}'.format(version=__version__))
