@@ -388,7 +388,7 @@ def fetch_api(url,usr,password,method,isJson):
     env = Environment(loader=PackageLoader('pycmxml', 'templates'),autoescape=select_autoescape())
     template = env.get_template('michelin/obterPacotePosicoes.xml')
     body = template.render()
-
+    print(body)
     response = requests.post(url,data=body,headers=headers)
     print(response.content)
 
