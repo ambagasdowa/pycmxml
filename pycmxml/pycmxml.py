@@ -133,6 +133,9 @@ def main():
             #     mit.exec()
             # except:
             #     pass
+    else:
+        print(
+            f"[green]must specifie an application to execute with -x OR --application parameter[green]")
 
 
 if __name__ == '__main__':
