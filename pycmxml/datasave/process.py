@@ -386,14 +386,23 @@ def fetch_api(url,usr,password,method,isJson):
     #             </soapenv:Envelope>
     #         """
 
-    env = Environment(loader=PackageLoader('pycmxml', 'templates'),autoescape=select_autoescape())
+# Template('Hello {{ name }}!').stream(name='foo').dump('hello.html')
+
+    env = Environment(
+                        loader=PackageLoader('pycmxml', 'templates'),
+                        autoescape=select_autoescape(
+                                                        enabled_extensions=('html', 'xml','md'),
+                                                        disabled_extensions=('txt'),
+                                                        default_for_string=True,)
+                    )
     template = env.get_template('michelin/obterPacotePosicoes.xml')
+    print(template)
     body = template.render()
     print(body)
     response = requests.post(url,data=body,headers=headers)
     print(response.content)
 
-
+    print(f"[red]End of request [red]")
 
 
 
