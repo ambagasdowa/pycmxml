@@ -138,7 +138,7 @@ def main():
             #     pass
     else:
         print(
-            f"\n[green]must specifie an application to execute with -x OR --application parameter[green]")
+            f"\n[green]must specified an application to execute with -x OR --application parameter[green]")
 
 
 if __name__ == '__main__':

@@ -34,6 +34,12 @@ import zipfile
 import hashlib
 
 
+# request libs
+import requests
+import json
+
+
+
 ## Inner libs
 
 import pycmxml.config.config as conf
@@ -336,4 +342,46 @@ def parse(cursor,config,fecha):
         print(files_ids)
 
 #    cursor.close()
+
+
+
+def fetch_api(url,usr,password,method,isJson):
+    print(f"[blue]fetch the method[blue]")
+
+# JSON method
+    #url = 'https://api.github.com/some/endpoint'
+    #headers = {'user-agent': 'my-app/0.0.1'}
+    #params = {'key':'value'}
+
+    #response = requests.get(url, headers=headers,params=params)
+    #print(response.text)
+    #print(response.json())
+    ## Getting dictionary
+    #print(json.loads(response.text))
+    ##Simulate the response
+    #person_string = '{"name": "Bob", "languages": "English", "numbers": [2, 1.6, null]}'
+    ## Getting dictionary
+    #person_dict = json.loads(person_string)
+    ## Pretty Printing JSON string back
+    #print(json.dumps(person_dict, indent = 4, sort_keys=True))
+
+# XML method
+    url="http://wsf.cdyne.com/WeatherWS/Weather.asmx?WSDL"
+    #headers = {'content-type': 'application/soap+xml'}
+    headers = {'content-type': 'text/xml'}
+    body = """<?xml version="1.0" encoding="UTF-8"?>
+             <SOAP-ENV:Envelope xmlns:ns0="http://ws.cdyne.com/WeatherWS/" xmlns:ns1="http://schemas.xmlsoap.org/soap/envelope/"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+                <SOAP-ENV:Header/>
+                  <ns1:Body><ns0:GetWeatherInformation/></ns1:Body>
+             </SOAP-ENV:Envelope>"""
+
+    response = requests.post(url,data=body,headers=headers)
+    print(response.content)
+
+
+
+
+
+
 
