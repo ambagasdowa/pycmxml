@@ -105,7 +105,7 @@ def main():
     if (args.application in x):
         print(f"[cyan]Set app to cursor: [cyan]")
         # then execute prf or
-        if (arg.application == 'cmex'):
+        if (args.application == 'cmex'):
 
             if(args.config == False):
                 print("[red]Config[red] : [cyan]off[cyan]")
@@ -127,7 +127,7 @@ def main():
                     pass
             cursor.close()
 
-        if (arg.application == 'michelin'):
+        if (args.application == 'michelin'):
             print(f"[red]Execute[red]: [cyan]Michelin app[cyan]")
             # try:
             #     mit.exec()
