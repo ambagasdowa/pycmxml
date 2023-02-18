@@ -132,10 +132,10 @@ def main():
             cursor = db.connect(config)
 
             print(f"[red]Execute[red]: [cyan]Michelin app[cyan]")
-            # try:
-            #     mit.exec()
-            # except:
-            #     pass
+            try:
+                prf.fetch_api('', '', '', '', '')
+            except:
+                pass
     else:
         print(
             f"\n[green]must specified an application to execute with -x OR --application parameter[green]")
