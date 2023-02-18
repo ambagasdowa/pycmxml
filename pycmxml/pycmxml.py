@@ -80,6 +80,8 @@ def get_args():
                         )
     # parser.add_argument('--version', action='version',
     #                     version='%(prog)s {version}'.format(version=__version__))
+    # parser.print_help()
+    # parser.parse_args(['-h'])
     return parser.parse_args()
 
 
