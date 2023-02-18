@@ -347,6 +347,7 @@ def parse(cursor,config,fecha):
 
 def fetch_api(url,usr,password,method,isJson):
     print(f"[blue]fetch the method[blue]")
+    print(f"[red]testing templates ...[red]")
 
 # JSON method
     #url = 'https://api.github.com/some/endpoint'
