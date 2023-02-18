@@ -37,7 +37,7 @@ import hashlib
 # request libs
 import requests
 import json
-
+from jinja2 import Environment, PackageLoader
 
 
 ## Inner libs
@@ -366,15 +366,28 @@ def fetch_api(url,usr,password,method,isJson):
     #print(json.dumps(person_dict, indent = 4, sort_keys=True))
 
 # XML method
-    url="http://wsf.cdyne.com/WeatherWS/Weather.asmx?WSDL"
+    url="http://sasintegra.sascar.com.br/SasIntegra/SasIntegraWSService?wsdl"
     #headers = {'content-type': 'application/soap+xml'}
     headers = {'content-type': 'text/xml'}
+
     body = """<?xml version="1.0" encoding="UTF-8"?>
-             <SOAP-ENV:Envelope xmlns:ns0="http://ws.cdyne.com/WeatherWS/" xmlns:ns1="http://schemas.xmlsoap.org/soap/envelope/"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
-                <SOAP-ENV:Header/>
-                  <ns1:Body><ns0:GetWeatherInformation/></ns1:Body>
-             </SOAP-ENV:Envelope>"""
+                <soapenv:Envelope
+                    xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                    xmlns:ws="http://webservice.web.integracao.sascar.com.br/">
+                        <soapenv:Header />
+                        <soapenv:Body>
+                                <ws:obterPacotePosicoes>
+                                    <usuario>GST.GR</usuario>
+                                    <senha>GRGST.2022</senha>
+                                    <quantidade>3000</quantidade>
+                                </ws:obterPacotePosicoes>
+                        </soapenv:Body>
+                </soapenv:Envelope>
+            """
+
+    # env = Environment(loader=PackageLoader('myapp', 'templates'))
+    # template = env.get_template('soaprequests/WeatherSericeRequest.xml')
+    # body = template.render()
 
     response = requests.post(url,data=body,headers=headers)
     print(response.content)
