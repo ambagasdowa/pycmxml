@@ -93,19 +93,17 @@ def main():
     config = conf.configuration
     # === === === === === === === ===  Library Section  === === === === === === === === #
 
-    print("[green]" + lib.camelize('connecting')+"...[green]")
-
-    for i in track(range(2), description="Processing..."):
-        time.sleep(1)  # Simulate work being done
-
-    cursor = db.connect(config)
-
+    print("[green]" + lib.camelize('initializing')+"...[green]")
     print(args)
 
     if (args.application in x):
         print(f"[cyan]Set app to cursor: [cyan]")
         # then execute prf or
         if (args.application == 'cmex'):
+
+            for i in track(range(2), description="Connecting to database ..."):
+                time.sleep(1)  # Simulate work being done
+            cursor = db.connect(config)
 
             if(args.config == False):
                 print("[red]Config[red] : [cyan]off[cyan]")
@@ -128,6 +126,11 @@ def main():
             cursor.close()
 
         if (args.application == 'michelin'):
+
+            for i in track(range(2), description="Connecting to database ..."):
+                time.sleep(1)  # Simulate work being done
+            cursor = db.connect(config)
+
             print(f"[red]Execute[red]: [cyan]Michelin app[cyan]")
             # try:
             #     mit.exec()
@@ -135,7 +138,7 @@ def main():
             #     pass
     else:
         print(
-            f"[green]must specifie an application to execute with -x OR --application parameter[green]")
+            f"\n[green]must specifie an application to execute with -x OR --application parameter[green]")
 
 
 if __name__ == '__main__':
