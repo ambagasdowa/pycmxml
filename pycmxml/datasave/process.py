@@ -37,7 +37,7 @@ import hashlib
 # request libs
 import requests
 import json
-from jinja2 import Environment, PackageLoader
+from jinja2 import Environment, PackageLoader, select_autoescape
 
 
 ## Inner libs
@@ -370,24 +370,24 @@ def fetch_api(url,usr,password,method,isJson):
     #headers = {'content-type': 'application/soap+xml'}
     headers = {'content-type': 'text/xml'}
 
-    body = """<?xml version="1.0" encoding="UTF-8"?>
-                <soapenv:Envelope
-                    xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-                    xmlns:ws="http://webservice.web.integracao.sascar.com.br/">
-                        <soapenv:Header />
-                        <soapenv:Body>
-                                <ws:obterPacotePosicoes>
-                                    <usuario>GST.GR</usuario>
-                                    <senha>GRGST.2022</senha>
-                                    <quantidade>3000</quantidade>
-                                </ws:obterPacotePosicoes>
-                        </soapenv:Body>
-                </soapenv:Envelope>
-            """
+    # body = """<?xml version="1.0" encoding="UTF-8"?>
+    #             <soapenv:Envelope
+    #                 xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+    #                 xmlns:ws="http://webservice.web.integracao.sascar.com.br/">
+    #                     <soapenv:Header />
+    #                     <soapenv:Body>
+    #                             <ws:obterPacotePosicoes>
+    #                                 <usuario>GST.GR</usuario>
+    #                                 <senha>GRGST.2022</senha>
+    #                                 <quantidade>3000</quantidade>
+    #                             </ws:obterPacotePosicoes>
+    #                     </soapenv:Body>
+    #             </soapenv:Envelope>
+    #         """
 
-    # env = Environment(loader=PackageLoader('myapp', 'templates'))
-    # template = env.get_template('soaprequests/WeatherSericeRequest.xml')
-    # body = template.render()
+    env = Environment(loader=PackageLoader('pycmxml', 'templates'),autoescape=select_autoescape())
+    template = env.get_template('michelin/obterPacotePosicoes.xml')
+    body = template.render()
 
     response = requests.post(url,data=body,headers=headers)
     print(response.content)
