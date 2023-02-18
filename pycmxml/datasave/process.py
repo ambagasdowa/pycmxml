@@ -333,6 +333,11 @@ def parse(cursor,config,fecha):
         print("Nothing to save ...")
     else:
         ## TODO Run db Procedure for info treatments and pass the id's files  as params 
+#        To call a stored procedure that takes only input parameters, we can do
+#
+#        params = (14, "Dinsdale")
+#        crsr.execute("{CALL usp_UpdateFirstName (?,?)}", params)
+# NOTE --> https://github.com/mkleehammer/pyodbc/wiki/Calling-Stored-Procedures
         print(files_ids)
 
 #    cursor.close()
