@@ -417,16 +417,16 @@ def fetch_api( module,isJson):
         print(f"Trying element tree...")
         try:
             tree = ET.fromstring(strXml)
-            # ns = {
-            #         'S':"http://schemas.xmlsoap.org/soap/envelope/",
-            #         'ns0':"http://webservice.web.integracao.sascar.com.br/",
-            # }
+            ns = {
+                    'S':"http://schemas.xmlsoap.org/soap/envelope/",
+                    'ns0':"http://webservice.web.integracao.sascar.com.br/",
+            }
             if tree is None:
                 print('no trees')
             else:
                 # print (tree.itertext())
-                for child in tree:
-                    print(f"chidls : {child.tag} with attrib {child.attrib}")
+                for child in tree.findall('.//S:Body',ns):
+                    print(f"childs : {child.tag} with attrib {child.attrib}")
             # for some in tree.findall('.//ns0:obterPacotePosicoesResponse',ns):
             #     print(some)
 
