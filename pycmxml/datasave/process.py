@@ -411,10 +411,11 @@ def fetch_api( module,isJson):
         print(template)
         body = template.render()
         response = requests.post(url,data=body,headers=headers)
+        strXml = str(response.text)
         # print(response.text)
         # work on database save 
         # tree = ET.parse(response.text)
-        tree = ET.fromstring(response.text)
+        tree = ET.fromstring(strXml)
         ns = {
                 'S':"http://schemas.xmlsoap.org/soap/envelope/",
                 'ns0':"http://webservice.web.integracao.sascar.com.br/",
