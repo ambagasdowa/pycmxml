@@ -30,15 +30,22 @@ pycmxml = "pycmxml.pycmxml:main"
 
 [tool.setuptools]
 package-dir = {"" = "./"}  # directory containing all the packages (e.g.  src/mypkg1, src/mypkg2)
-[tool.setuptools.packages]
-find = {}  # Scanning implicit namespaces is active by default
+
+# By default, include-package-data is true in pyproject.toml, so you do
+# NOT have to specify this line.
+#include-package-data = true
+
+# [tool.setuptools.packages]
+# find = {}  # Scanning implicit namespaces is active by default
 
 #dynamic = ["version"]
-# [tool.setuptools.packages.find]
-# where = ["templates"]
+[tool.setuptools.packages.find]
+namespaces = true
+where = ["pycmxml"]
 
 [tool.setuptools.package-data]
-pycmxml = ["*.xml", "*.html"]
+"pycmxml.templates" = ["*.xml", "*.html"]
+
 #[project.optional-dependencies]
 #pdf = ["ReportLab>=1.2", "RXP"]
 #rest = ["docutils>=0.3", "pack ==1.1, ==1.3"]
