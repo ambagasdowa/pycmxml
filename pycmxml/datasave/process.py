@@ -426,8 +426,8 @@ def fetch_api( module,isJson):
             else:
                 # print (tree.itertext())
                 # for child in tree.findall('.//S:Body',ns):
-                for child in tree.iter('return'):
-                    print(f"childs : {child.tag} with attrib {child.attrib}")
+                for child in tree.findall('return'):
+                    print(f"Tags : {child.tag} with attribs {child.attrib}")
             # for some in tree.findall('.//ns0:obterPacotePosicoesResponse',ns):
             #     print(some)
 
