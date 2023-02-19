@@ -411,7 +411,7 @@ def fetch_api( module,isJson):
         print(template)
         body = template.render()
         response = requests.post(url,data=body,headers=headers)
-        print(response.text)
+        # print(response.text)
         # work on database save 
         get_xml = ET.parse(response.text)
         ns = {
@@ -420,7 +420,7 @@ def fetch_api( module,isJson):
         }
 
         for some in get_xml.findall('.//ns0:obterPacotePosicoesResponse',ns):
-            print(some.attrib)
+            print(some)
 
     print(f"[red]End of request [red]")
 
