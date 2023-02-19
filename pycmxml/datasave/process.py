@@ -405,7 +405,7 @@ def fetch_api( module,isJson):
     file_ext = "xml"
     template_files=conf.configuration['app_section'][module]['methods'][file_ext]
 
-    xfile = f"{module}/{template_files}.{file_ext}"
+    xfile = f"{module}/{template_files[0]}.{file_ext}"
     print(xfile)
     #template = env.get_template('michelin/obterPacotePosicoes.xml')
     template = env.get_template(xfile)
