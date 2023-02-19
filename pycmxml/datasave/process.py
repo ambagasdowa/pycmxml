@@ -414,9 +414,13 @@ def fetch_api( module,isJson):
         print(response.text)
         # work on database save 
         get_xml = ET.parse(response.content)
-            # ns = {'cfdi': 'http://www.sat.gob.mx/cfd/4',
-            #       'cartapore20': 'http://www.sat.gob.mx/CartaPorte20'}
-        print (get_xml)
+        ns = {
+                'S':"http://schemas.xmlsoap.org/soap/envelope/",
+                'ns0':"http://webservice.web.integracao.sascar.com.br/",
+        }
+
+        for some in get_xml:
+            print(some.attrib)
 
     print(f"[red]End of request [red]")
 
