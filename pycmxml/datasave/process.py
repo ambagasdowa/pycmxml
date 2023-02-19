@@ -413,7 +413,7 @@ def fetch_api( module,isJson):
         response = requests.post(url,data=body,headers=headers)
         # print(response.content)
         # work on database save 
-        get_xml = ET.parse(response)
+        get_xml = ET.parse(response.content)
             # ns = {'cfdi': 'http://www.sat.gob.mx/cfd/4',
             #       'cartapore20': 'http://www.sat.gob.mx/CartaPorte20'}
         print (get_xml)
