@@ -413,7 +413,8 @@ def fetch_api( module,isJson):
         response = requests.post(url,data=body,headers=headers)
         # print(response.text)
         # work on database save 
-        tree = ET.parse(response.text)
+        # tree = ET.parse(response.text)
+        tree = ET.fromstring(response.text)
         ns = {
                 'S':"http://schemas.xmlsoap.org/soap/envelope/",
                 'ns0':"http://webservice.web.integracao.sascar.com.br/",
