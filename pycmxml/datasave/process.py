@@ -347,8 +347,6 @@ def parse(cursor,config,fecha):
 
 def fetch_api( module,isJson):
     print(f"[blue]fetch the method[blue]")
-    print(f"[red]testing templates ...[red]")
-
 # JSON method
     #url = 'https://api.github.com/some/endpoint'
     #headers = {'user-agent': 'my-app/0.0.1'}
@@ -409,12 +407,16 @@ def fetch_api( module,isJson):
 
         xfile = f"{module}/{modfile}.{ext}"
         print(f"[red]Request for file: [red][green]{xfile}[green]")
-        #template = env.get_template('michelin/obterPacotePosicoes.xml')
         template = env.get_template(xfile)
         print(template)
         body = template.render()
         response = requests.post(url,data=body,headers=headers)
-        print(response.content)
+        # print(response.content)
+        # work on database save 
+        get_xml = ET.parse(response)
+            # ns = {'cfdi': 'http://www.sat.gob.mx/cfd/4',
+            #       'cartapore20': 'http://www.sat.gob.mx/CartaPorte20'}
+        print (get_xml)
 
     print(f"[red]End of request [red]")
 
