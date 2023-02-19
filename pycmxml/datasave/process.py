@@ -424,8 +424,9 @@ def fetch_api( module,isJson):
             if tree is None:
                 print('no trees')
             else:
-                print (tree.itertext())
-
+                # print (tree.itertext())
+                for child in tree:
+                    print(f"chidls : {child.tag} with attrib {child.attrib}")
             # for some in tree.findall('.//ns0:obterPacotePosicoesResponse',ns):
             #     print(some)
 
