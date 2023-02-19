@@ -419,7 +419,7 @@ def fetch_api( module,isJson):
                 'ns0':"http://webservice.web.integracao.sascar.com.br/",
         }
 
-        for some in get_xml:
+        for some in get_xml.findall('.//ns0:obterPacotePosicoesResponse',ns):
             print(some.attrib)
 
     print(f"[red]End of request [red]")
