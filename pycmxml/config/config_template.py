@@ -35,8 +35,8 @@ configuration = {
         "michelin": {
             "url": "http://sasintegra.sascar.com.br/SasIntegra/SasIntegraWSService?wsdl",
             # "headers":{'content-type': 'application/soap+xml'},
-            "headers": {'content-type': 'text/xml'},
-            "methods": {"xml": ['obterPacotePosicoes']},
+            "headers": {"content-type": 'text/xml'},
+            "methods": {"xml": ['obterPacotePosicoes', 'obterVeicules']},
         }
     }
 

@@ -366,6 +366,8 @@ def fetch_api(config, module,isJson):
     ## Pretty Printing JSON string back
     #print(json.dumps(person_dict, indent = 4, sort_keys=True))
 
+    print(f"[red]JSON:[red][cyan] Printing ...[cyan]")
+    print(config)
 # XML method
     url=config.app_section[module].url
     headers=config.app_section[module].headers
