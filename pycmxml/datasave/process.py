@@ -369,10 +369,10 @@ def fetch_api( module,isJson):
     print(f"[red]JSON:[red][cyan] Printing ...[cyan]")
     print(f"Mdule from :{module}")
     print(conf)
-    print(conf['app_section'][module])
+    print(conf.configuration['app_section'][module])
 # XML method
-    url=conf['app_section'][module]['url']
-    headers=conf['app_section'][module]['headers']
+    url=conf.configuration['app_section'][module]['url']
+    headers=conf.configuration['app_section'][module]['headers']
 
     #headers = {'content-type': 'application/soap+xml'}
     # headers = {'content-type': 'text/xml'}
@@ -403,7 +403,7 @@ def fetch_api( module,isJson):
                     )
 
     file_ext = "xml"
-    template_files=conf['app_section'][module]['methods'][file_ext]
+    template_files=conf.configuration['app_section'][module]['methods'][file_ext]
 
     xfile = f"{module}/{template_files}.{file_ext}"
     #template = env.get_template('michelin/obterPacotePosicoes.xml')
