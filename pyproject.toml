@@ -34,7 +34,11 @@ package-dir = {"" = "./"}  # directory containing all the packages (e.g.  src/my
 find = {}  # Scanning implicit namespaces is active by default
 
 #dynamic = ["version"]
+[tool.setuptools.packages.find]
+where = ["templates"]
 
+[tool.setuptools.package-data]
+mypkg = ["*.xml", "*.html"]
 #[project.optional-dependencies]
 #pdf = ["ReportLab>=1.2", "RXP"]
 #rest = ["docutils>=0.3", "pack ==1.1, ==1.3"]
