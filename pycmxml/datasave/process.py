@@ -415,6 +415,7 @@ def fetch_api( module,isJson):
         # print(response.text)
         # work on database save 
         # tree = ET.parse(response.text)
+        print(f"Trying element tree...")
         tree = ET.fromstring(strXml)
         ns = {
                 'S':"http://schemas.xmlsoap.org/soap/envelope/",
