@@ -412,8 +412,7 @@ def fetch_api( module,isJson):
         body = template.render()
         response = requests.post(url,data=body,headers=headers)
         strXml = str(response.text)
-        # print(response.text)
-        # work on database save 
+        print(f"[gray]{strXml}[gray]")
         # tree = ET.parse(response.text)
         print(f"Trying element tree...")
         tree = ET.fromstring(strXml)
