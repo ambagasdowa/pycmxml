@@ -33,7 +33,7 @@ package-dir = {"" = "./"}  # directory containing all the packages (e.g.  src/my
 
 # By default, include-package-data is true in pyproject.toml, so you do
 # NOT have to specify this line.
-include-package-data = true
+# include-package-data = true
 
 [tool.setuptools.packages]
 find = {}  # Scanning implicit namespaces is active by default
