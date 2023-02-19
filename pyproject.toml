@@ -35,13 +35,13 @@ package-dir = {"" = "./"}  # directory containing all the packages (e.g.  src/my
 # NOT have to specify this line.
 include-package-data = true
 
-# [tool.setuptools.packages]
-# find = {}  # Scanning implicit namespaces is active by default
+[tool.setuptools.packages]
+find = {}  # Scanning implicit namespaces is active by default
 
 #dynamic = ["version"]
-[tool.setuptools.packages.find]
-# namespaces = true
-where = ["pycmxml"]
+# [tool.setuptools.packages.find]
+# # namespaces = true
+# where = ["pycmxml"]
 
 [tool.setuptools.package-data]
 "*" = ["*.xml"]
