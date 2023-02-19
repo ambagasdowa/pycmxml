@@ -345,7 +345,7 @@ def parse(cursor,config,fecha):
 
 
 
-def fetch_api(config, module,isJson):
+def fetch_api( module,isJson):
     print(f"[blue]fetch the method[blue]")
     print(f"[red]testing templates ...[red]")
 
@@ -367,9 +367,8 @@ def fetch_api(config, module,isJson):
     #print(json.dumps(person_dict, indent = 4, sort_keys=True))
 
     print(f"[red]JSON:[red][cyan] Printing ...[cyan]")
-    print(config)
     print(conf)
-    print(conf.app_section.michelin)
+    print(conf['app_section'][module])
 # XML method
     url=config.app_section[module].url
     headers=config.app_section[module].headers
