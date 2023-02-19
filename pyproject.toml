@@ -40,11 +40,12 @@ include-package-data = true
 
 #dynamic = ["version"]
 [tool.setuptools.packages.find]
-namespaces = true
+# namespaces = true
 where = ["pycmxml"]
 
 [tool.setuptools.package-data]
-"pycmxml.templates.michelin" = ["*.xml", "*.html"]
+"*" = ["*.xml"]
+# "templates.michelin" = ["*.xml", "*.html"]
 
 #[project.optional-dependencies]
 #pdf = ["ReportLab>=1.2", "RXP"]
