@@ -368,7 +368,8 @@ def fetch_api(config, module,isJson):
 
     print(f"[red]JSON:[red][cyan] Printing ...[cyan]")
     print(config)
-    print(config.app_section.michelin)
+    print(conf)
+    print(conf.app_section.michelin)
 # XML method
     url=config.app_section[module].url
     headers=config.app_section[module].headers
