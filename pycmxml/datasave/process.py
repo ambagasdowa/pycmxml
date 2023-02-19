@@ -411,7 +411,7 @@ def fetch_api( module,isJson):
         print(template)
         body = template.render()
         response = requests.post(url,data=body,headers=headers)
-        # print(response.content)
+        print(response.text)
         # work on database save 
         get_xml = ET.parse(response.content)
             # ns = {'cfdi': 'http://www.sat.gob.mx/cfd/4',
