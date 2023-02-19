@@ -415,15 +415,19 @@ def fetch_api( module,isJson):
         print(f"[gray]{strXml}[gray]")
         # tree = ET.parse(response.text)
         print(f"Trying element tree...")
-        tree = ET.fromstring(strXml)
-        ns = {
-                'S':"http://schemas.xmlsoap.org/soap/envelope/",
-                'ns0':"http://webservice.web.integracao.sascar.com.br/",
-        }
-        print (tree.getroot())
+        try:
+            tree = ET.fromstring(strXml)
+            ns = {
+                    'S':"http://schemas.xmlsoap.org/soap/envelope/",
+                    'ns0':"http://webservice.web.integracao.sascar.com.br/",
+            }
+            print (tree.getroot())
 
-        for some in tree.findall('.//ns0:obterPacotePosicoesResponse',ns):
-            print(some)
+            for some in tree.findall('.//ns0:obterPacotePosicoesResponse',ns):
+                print(some)
+
+        except Exception as e:
+            raise e
 
     print(f"[red]End of request [red]")
 
