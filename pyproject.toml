@@ -30,8 +30,8 @@ pycmxml = "pycmxml.pycmxml:main"
 
 [tool.setuptools]
 package-dir = {"" = "./"}  # directory containing all the packages (e.g.  src/mypkg1, src/mypkg2)
-[tool.setuptools.packages]
-find = {}  # Scanning implicit namespaces is active by default
+# [tool.setuptools.packages]
+# find = {}  # Scanning implicit namespaces is active by default
 
 #dynamic = ["version"]
 [tool.setuptools.packages.find]
