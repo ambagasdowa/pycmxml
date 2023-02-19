@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pycmxml"
-version = "0.0.2"
+version = "0.0.3"
 description = "fecth for cfdi_xml packed as zip and store in db"
 authors = [
   { name="Jesus Baizabal", email="baizabal.jesus@gmail.com" },
