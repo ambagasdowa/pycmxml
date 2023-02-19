@@ -345,7 +345,7 @@ def parse(cursor,config,fecha):
 
 
 
-def fetch_api(url,usr,password,method,isJson):
+def fetch_api(config, module,isJson):
     print(f"[blue]fetch the method[blue]")
     print(f"[red]testing templates ...[red]")
 
@@ -367,9 +367,10 @@ def fetch_api(url,usr,password,method,isJson):
     #print(json.dumps(person_dict, indent = 4, sort_keys=True))
 
 # XML method
-    url="http://sasintegra.sascar.com.br/SasIntegra/SasIntegraWSService?wsdl"
+    url=config.app_section[module].url
+    headers=config.app_section[module].headers
     #headers = {'content-type': 'application/soap+xml'}
-    headers = {'content-type': 'text/xml'}
+    # headers = {'content-type': 'text/xml'}
 
     # body = """<?xml version="1.0" encoding="UTF-8"?>
     #             <soapenv:Envelope
@@ -395,10 +396,16 @@ def fetch_api(url,usr,password,method,isJson):
                                                         disabled_extensions=('txt'),
                                                         default_for_string=True,)
                     )
-    template = env.get_template('michelin/obterPacotePosicoes.xml')
+
+    file_ext = "xml"
+    template_files = config.app_section[module].methods[file_ext]
+
+    xfile = f"{module}/{template_files}.{file_ext}"
+    #template = env.get_template('michelin/obterPacotePosicoes.xml')
+    template = env.get_template(xfile)
     print(template)
     body = template.render()
-    print(body)
+    # print(body)
     response = requests.post(url,data=body,headers=headers)
     print(response.content)
 

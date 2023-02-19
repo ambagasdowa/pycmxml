@@ -133,7 +133,7 @@ def main():
 
             print(f"[red]Execute[red]: [cyan]Michelin app[cyan]")
             try:
-                prf.fetch_api('', '', '', '', '')
+                prf.fetch_api(conf, args.application, False)
             except:
                 pass
     else:

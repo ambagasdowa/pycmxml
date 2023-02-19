@@ -44,8 +44,8 @@ find = {}  # Scanning implicit namespaces is active by default
 # where = ["pycmxml"]
 
 [tool.setuptools.package-data]
-#"*" = ["*.xml"]
-"pycmxml.templates.michelin" = ["*.xml", "*.html"]
+"*" = ["*.xml"]
+#"pycmxml.templates.michelin" = ["*.xml", "*.html"]
 
 #[project.optional-dependencies]
 #pdf = ["ReportLab>=1.2", "RXP"]
