@@ -367,12 +367,13 @@ def fetch_api( module,isJson):
     #print(json.dumps(person_dict, indent = 4, sort_keys=True))
 
     print(f"[red]JSON:[red][cyan] Printing ...[cyan]")
-    print(f"Mdule from :{module}")
+    print(f"Mdule from : [blue]{module}[blue]")
     print(conf)
     print(conf.configuration['app_section'][module])
 # XML method
     url=conf.configuration['app_section'][module]['url']
     headers=conf.configuration['app_section'][module]['headers']
+    ext = conf.configuration['app_section'][module]["xtension"]
 
     #headers = {'content-type': 'application/soap+xml'}
     # headers = {'content-type': 'text/xml'}
@@ -402,18 +403,18 @@ def fetch_api( module,isJson):
                                                         default_for_string=True,)
                     )
 
-    file_ext = "xml"
-    template_files=conf.configuration['app_section'][module]['methods'][file_ext]
+    template_files=conf.configuration['app_section'][module]['methods']
 
-    xfile = f"{module}/{template_files[0]}.{file_ext}"
-    print(xfile)
-    #template = env.get_template('michelin/obterPacotePosicoes.xml')
-    template = env.get_template(xfile)
-    print(template)
-    body = template.render()
-    # print(body)
-    response = requests.post(url,data=body,headers=headers)
-    print(response.content)
+    for modfile in template_files:
+
+        xfile = f"{module}/{modfile}.{ext}"
+        print(f"[red]Request for file: [red][green]{xfile}[green]")
+        #template = env.get_template('michelin/obterPacotePosicoes.xml')
+        template = env.get_template(xfile)
+        print(template)
+        body = template.render()
+        response = requests.post(url,data=body,headers=headers)
+        print(response.content)
 
     print(f"[red]End of request [red]")
 
