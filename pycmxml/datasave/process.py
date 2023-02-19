@@ -413,13 +413,14 @@ def fetch_api( module,isJson):
         response = requests.post(url,data=body,headers=headers)
         # print(response.text)
         # work on database save 
-        get_xml = ET.parse(response.text)
+        tree = ET.parse(response.text)
         ns = {
                 'S':"http://schemas.xmlsoap.org/soap/envelope/",
                 'ns0':"http://webservice.web.integracao.sascar.com.br/",
         }
+        print (tree.getroot())
 
-        for some in get_xml.findall('.//ns0:obterPacotePosicoesResponse',ns):
+        for some in tree.findall('.//ns0:obterPacotePosicoesResponse',ns):
             print(some)
 
     print(f"[red]End of request [red]")
