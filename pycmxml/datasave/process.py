@@ -437,10 +437,13 @@ def fetch_api( module,isJson):
 
                 loop = 0
                 for position in tree.findall('.//return'):
-                    idVeiculo = position.find('idVeiculo').text
+                    # idVeiculo = position.find('idVeiculo').text
                     loop += 1
+                    for eachBlock in position.iter():
+                        print(f"Loop:[red]{loop}[red] xTag: [cyan]{eachBlock.tag}[cyan] xText: [blue]{eachBlock.text}[blue] ")
+
                     # placa = position.find('placa').text
-                    print(f"[red]Tag: idVeiculo, data: {idVeiculo} [red] [cyan]loop : {loop}[cyan]")
+                    # print(f"[red]Tag: idVeiculo, data: {idVeiculo} [red] [cyan]loop : {loop}[cyan]")
             # for some in tree.findall('.//ns0:obterPacotePosicoesResponse',ns):
             #     print(some)
 
