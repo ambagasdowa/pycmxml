@@ -412,7 +412,7 @@ def fetch_api( module,isJson):
         body = template.render()
         response = requests.post(url,data=body,headers=headers)
         strXml = str(response.text)
-        print(f"[gray]{strXml}[gray]")
+        # print(f"[gray]{strXml}[gray]")
         # tree = ET.parse(response.text)
         print(f"Trying element tree...")
         try:
@@ -422,26 +422,26 @@ def fetch_api( module,isJson):
                     'ns0':"http://webservice.web.integracao.sascar.com.br/",
             }
             # Build namespace 
-            nZero = f".//ns0:{modfile}Response"
-            print(nZero)
+            # nZero = f".//ns0:{modfile}Response"
+            # print(nZero)
             if tree is None:
                 print('no trees')
             else:
                 # print (tree.itertext())
-                for c in tree.iter():
-                    # print(f"cTags : {c.tag} with cAttr {c.attrib} and cText : {c.text}")
-                    print(f"{c.tag} : {c.text}")
+                # for c in tree.iter():
+                #     print(f"cTags : {c.tag} with cAttr {c.attrib} and cText : {c.text}")
 
-                for child in tree.findall('.//S:Body',ns):
-                    print(f"T : {child.tag} with A {child.attrib} and T : {child.text}")
+                # for child in tree.findall('.//S:Body',ns):
+                #     print(f"T : {child.tag} with A {child.attrib} and T : {child.text}")
 
                 loop = 0
                 for position in tree.findall('.//return'):
                     # idVeiculo = position.find('idVeiculo').text
                     loop += 1
                     for eachBlock in position.iter():
-                        print(f"Loop:[red]{loop}[gray] xTag: [cyan]{eachBlock.tag}[gray] xText: [blue]{eachBlock.text} ")
+                        print(f"Loop:[red]{loop} [gray] xTag: [cyan]{eachBlock.tag}[gray] xText: [blue]{eachBlock.text} ")
 
+                print(f"Saving records with loop -> {loop} ...")
                     # placa = position.find('placa').text
                     # print(f"[red]Tag: idVeiculo, data: {idVeiculo} [red] [cyan]loop : {loop}[cyan]")
             # for some in tree.findall('.//ns0:obterPacotePosicoesResponse',ns):
