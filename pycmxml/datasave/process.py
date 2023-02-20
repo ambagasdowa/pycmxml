@@ -425,7 +425,7 @@ def fetch_api( module,isJson):
                 print('no trees')
             else:
                 # print (tree.itertext())
-                 for c in tree.iter():
+                for c in tree.iter():
                     print(f"cTags : {c.tag} with cattribs {c.attrib}")
 
                 for child in tree.findall('.//S:Body',ns):
