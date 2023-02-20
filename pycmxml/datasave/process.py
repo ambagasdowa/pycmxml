@@ -444,7 +444,7 @@ def fetch_api( module,isJson):
                     loop += 1
                     for eachBlock in position.iter():
                         print(f"method_id for {modfile} Loop:[red]{loop}[/red] [gray] xTag:[/gray] [cyan]{eachBlock.tag}[/cyan][gray] xText:[/gray] [blue]{eachBlock.text} ")
-                        dataset[loop].append([eachBlock.tag,eachBlock.text],)
+                        dataset[loop].append([eachBlock.tag,eachBlock.text,])
 
                 print(f"Saving records with loop -> {loop} ...")
                 print(dataset)
