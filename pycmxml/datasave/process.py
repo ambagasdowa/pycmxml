@@ -436,6 +436,7 @@ def fetch_api( module,isJson):
                 #     print(f"T : {child.tag} with A {child.attrib} and T : {child.text}")
 
                 loop = 0
+                dataset = {}
                 for position in tree.findall('.//return'):
                     # idVeiculo = position.find('idVeiculo').text
                     loop += 1
