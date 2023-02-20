@@ -412,7 +412,7 @@ def fetch_api( module,isJson):
         body = template.render()
         response = requests.post(url,data=body,headers=headers)
         strXml = str(response.text)
-        print(f"[gray]{strXml}[gray]")
+        # print(f"[gray]{strXml}[gray]")
         # tree = ET.parse(response.text)
         print(f"Trying element tree...")
         try:
@@ -426,7 +426,8 @@ def fetch_api( module,isJson):
             else:
                 # print (tree.itertext())
                 # for child in tree.findall('.//S:Body',ns):
-                for position in tree.findall('return'):
+                for position in tree.findall(f".//ns0:{modfile}Response"):
+
                     idVeiculo = position.find('idVeiculo').text
                     # placa = position.find('placa').text
                     print(f"[red]Tag: idVeiculo, data: {idVeiculo} [red]")
