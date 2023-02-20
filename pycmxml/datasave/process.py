@@ -415,6 +415,7 @@ def fetch_api( module,isJson):
         # print(f"[gray]{strXml}[gray]")
         # tree = ET.parse(response.text)
         print(f"Trying element tree...")
+        # search for method_id in datatable
         try:
             tree = ET.fromstring(strXml)
             ns = {
@@ -440,8 +441,10 @@ def fetch_api( module,isJson):
                     loop += 1
                     for eachBlock in position.iter():
                         print(f"Loop:[red]{loop} [gray] xTag: [cyan]{eachBlock.tag}[gray] xText: [blue]{eachBlock.text} ")
+                        dataset[loop] = [eachBlock.tag,eachBlock.text]
 
                 print(f"Saving records with loop -> {loop} ...")
+                print(dataset)
                     # placa = position.find('placa').text
                     # print(f"[red]Tag: idVeiculo, data: {idVeiculo} [red] [cyan]loop : {loop}[cyan]")
             # for some in tree.findall('.//ns0:obterPacotePosicoesResponse',ns):
