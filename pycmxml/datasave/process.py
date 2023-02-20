@@ -440,7 +440,7 @@ def fetch_api( module,isJson):
                     # idVeiculo = position.find('idVeiculo').text
                     loop += 1
                     for eachBlock in position.iter():
-                        print(f"Loop:[red]{loop}[red] xTag: [cyan]{eachBlock.tag}[cyan] xText: [blue]{eachBlock.text}[blue] ")
+                        print(f"Loop:[red]{loop}[gray] xTag: [cyan]{eachBlock.tag}[gray] xText: [blue]{eachBlock.text} ")
 
                     # placa = position.find('placa').text
                     # print(f"[red]Tag: idVeiculo, data: {idVeiculo} [red] [cyan]loop : {loop}[cyan]")
