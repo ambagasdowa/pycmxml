@@ -435,10 +435,12 @@ def fetch_api( module,isJson):
                 for child in tree.findall('.//S:Body',ns):
                     print(f"T : {child.tag} with A {child.attrib} and T : {child.text}")
 
+                loop = 0
                 for position in tree.findall('.//return'):
                     idVeiculo = position.find('idVeiculo').text
+                    loop += 1
                     # placa = position.find('placa').text
-                    print(f"[red]Tag: idVeiculo, data: {idVeiculo} [red]")
+                    print(f"[red]Tag: idVeiculo, data: {idVeiculo} [red] [cyan]loop : {loop}[cyan]")
             # for some in tree.findall('.//ns0:obterPacotePosicoesResponse',ns):
             #     print(some)
 
