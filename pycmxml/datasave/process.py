@@ -345,7 +345,7 @@ def parse(cursor,config,fecha):
 
 
 
-def fetch_api( module,isJson):
+def fetch_api( cursor, module, methods , isJson):
     print(f"[blue]fetch the method[blue]")
 # JSON method
     #url = 'https://api.github.com/some/endpoint'
@@ -373,26 +373,6 @@ def fetch_api( module,isJson):
     headers=conf.configuration['app_section'][module]['headers']
     ext = conf.configuration['app_section'][module]["xtension"]
 
-    #headers = {'content-type': 'application/soap+xml'}
-    # headers = {'content-type': 'text/xml'}
-
-    # body = """<?xml version="1.0" encoding="UTF-8"?>
-    #             <soapenv:Envelope
-    #                 xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-    #                 xmlns:ws="http://webservice.web.integracao.sascar.com.br/">
-    #                     <soapenv:Header />
-    #                     <soapenv:Body>
-    #                             <ws:obterPacotePosicoes>
-    #                                 <usuario>GST.GR</usuario>
-    #                                 <senha>GRGST.2022</senha>
-    #                                 <quantidade>3000</quantidade>
-    #                             </ws:obterPacotePosicoes>
-    #                     </soapenv:Body>
-    #             </soapenv:Envelope>
-    #         """
-
-# Template('Hello {{ name }}!').stream(name='foo').dump('hello.html')
-
     env = Environment(
                         loader=PackageLoader('pycmxml', 'templates'),
                         autoescape=select_autoescape(
@@ -401,7 +381,11 @@ def fetch_api( module,isJson):
                                                         default_for_string=True,)
                     )
 
-    template_files=conf.configuration['app_section'][module]['methods']
+    if methods is None:
+        template_files=conf.configuration['app_section'][module]['methods']
+    else:
+        # create an array
+        template_files=f"[{methods}]"
 
     for modfile in template_files:
 
@@ -415,7 +399,7 @@ def fetch_api( module,isJson):
         # print(f"[gray]{strXml}[gray]")
         # tree = ET.parse(response.text)
         print(f"Trying element tree...")
-        # search for method_id in datatable and set :
+        # ask for method_id in datatable and set :
         try:
             tree = ET.fromstring(strXml)
             ns = {
@@ -440,7 +424,6 @@ def fetch_api( module,isJson):
                         if eachBlock.tag != 'return':
                             dataset[eachBlock.tag] = eachBlock.text
                     print(f"Saving records with loop -> {loop} ...")
-                    # print(dataset)
                     savedata[loop] = dataset
                     loop += 1
 

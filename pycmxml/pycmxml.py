@@ -76,7 +76,10 @@ def get_args():
                         help='Takes dates from configuration values'
                         )
     parser.add_argument('-x', '--application',
-                        help='Set the application to execute [cmex, michelin, ... ]'
+                        help='Set the application to execute [cmex, michelin ]'
+                        )
+    parser.add_argument('-m', '--modules',
+                        help='Set the modules to run for get data from api ws , use whith --application params, and get entry as  module1,module2,...'
                         )
     # parser.add_argument('--version', action='version',
     #                     version='%(prog)s {version}'.format(version=__version__))
@@ -133,7 +136,7 @@ def main():
 
             print(f"[red]Execute[red]: [cyan]Michelin app[cyan]")
             try:
-                prf.fetch_api(args.application, False)
+                prf.fetch_api(cursor, args.application, args.modules, False)
             except:
                 pass
     else:
