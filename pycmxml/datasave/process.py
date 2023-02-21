@@ -385,7 +385,14 @@ def fetch_api( cursor, module, methods , isJson):
         template_files=conf.configuration['app_section'][module]['methods']
     else:
         # create an array
-        template_files=f"[{methods}]"
+        m=[]
+        spl = str(methods).split(',')
+        for data in spl:
+            m.append(spl)
+        print(m)
+        template_files=m
+
+    print(template_files)
 
     for modfile in template_files:
 
