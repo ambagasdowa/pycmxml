@@ -431,6 +431,7 @@ def fetch_api( module,isJson):
 
                 loop = 0
                 dataset = {}
+                savedata={}
 
                 for position in tree.findall('.//return'):
                     #TODO Create a new entry in db and retrieve the id
@@ -440,7 +441,10 @@ def fetch_api( module,isJson):
                             dataset[eachBlock.tag] = eachBlock.text
                     print(f"Saving records with loop -> {loop} ...")
                     print(dataset)
+                    savedata[loop] = dataset
                     loop += 1
+
+                print(savedata)
 
         except Exception as e:
             raise e
