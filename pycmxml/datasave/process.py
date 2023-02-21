@@ -441,13 +441,14 @@ def fetch_api( module,isJson):
                 for position in tree.findall('.//return'):
                     # idVeiculo = position.find('idVeiculo').text
                     #Create a new set in db and retrieve the id
-                    loop += 1
                     for eachBlock in position.iter():
                         print(f"method_id for {modfile} Loop:[red]{loop}[/red] [gray] xTag:[/gray] [cyan]{eachBlock.tag}[/cyan][gray] xText:[/gray] [blue]{eachBlock.text} ")
                         dataset[eachBlock.tag] = eachBlock.text
+                    print(f"Saving records with loop -> {loop} ...")
+                    print(dataset)
+                    loop += 1
 
-                print(f"Saving records with loop -> {loop} ...")
-                print(dataset)
+
                     # placa = position.find('placa').text
                     # print(f"[red]Tag: idVeiculo, data: {idVeiculo} [red] [cyan]loop : {loop}[cyan]")
             # for some in tree.findall('.//ns0:obterPacotePosicoesResponse',ns):
