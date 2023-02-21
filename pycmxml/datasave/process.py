@@ -388,7 +388,7 @@ def fetch_api( cursor, module, methods , isJson):
         m=[]
         spl = str(methods).split(',')
         for data in spl:
-            m.append(spl)
+            m.append(data)
         print(m)
         template_files=m
 
