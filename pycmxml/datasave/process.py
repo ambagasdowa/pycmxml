@@ -415,7 +415,7 @@ def fetch_api( module,isJson):
         # print(f"[gray]{strXml}[gray]")
         # tree = ET.parse(response.text)
         print(f"Trying element tree...")
-        # search for method_id in datatable
+        # search for method_id in datatable and set :
         try:
             tree = ET.fromstring(strXml)
             ns = {
@@ -428,31 +428,19 @@ def fetch_api( module,isJson):
             if tree is None:
                 print('no trees')
             else:
-                # print (tree.itertext())
-                # for c in tree.iter():
-                #     print(f"cTags : {c.tag} with cAttr {c.attrib} and cText : {c.text}")
-
-                # for child in tree.findall('.//S:Body',ns):
-                #     print(f"T : {child.tag} with A {child.attrib} and T : {child.text}")
 
                 loop = 0
                 dataset = {}
-                sav=[]
+
                 for position in tree.findall('.//return'):
-                    # idVeiculo = position.find('idVeiculo').text
-                    #Create a new set in db and retrieve the id
+                    #TODO Create a new entry in db and retrieve the id
+
                     for eachBlock in position.iter():
-                        print(f"method_id for {modfile} Loop:[red]{loop}[/red] [gray] xTag:[/gray] [cyan]{eachBlock.tag}[/cyan][gray] xText:[/gray] [blue]{eachBlock.text} ")
-                        dataset[eachBlock.tag] = eachBlock.text
+                        if eachBlock.tag != 'return':
+                            dataset[eachBlock.tag] = eachBlock.text
                     print(f"Saving records with loop -> {loop} ...")
                     print(dataset)
                     loop += 1
-
-
-                    # placa = position.find('placa').text
-                    # print(f"[red]Tag: idVeiculo, data: {idVeiculo} [red] [cyan]loop : {loop}[cyan]")
-            # for some in tree.findall('.//ns0:obterPacotePosicoesResponse',ns):
-            #     print(some)
 
         except Exception as e:
             raise e
