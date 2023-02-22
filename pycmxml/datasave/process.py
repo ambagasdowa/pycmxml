@@ -407,16 +407,15 @@ def fetch_api( cursor, module, methods , isJson):
 
         # ask for method_id for modfile in datatable and set :
         # request_method_id = 'select id from sistemas.dbo.app_api_methods where '
-        request_method = 'select id,app_id from sistemas.dbo.app_api_methods where methods = ?'
+        # request_method = 'select id,app_id from sistemas.dbo.app_api_methods where methods = ?'
+        # cursor.execute(request_method,(modfile,))
+        # resMethod = cursor.fetchone()
+        # cursor.commit()
+        # print(resMethod)
+        # method_id = resMethod.id
+        # app_id = resMethod.app_id
 
-        cursor.execute(request_method,(modfile,))
-        resMethod = cursor.fetchone()
-        cursor.commit()
-        print(resMethod)
-        method_id = resMethod.id
-        app_id = resMethod.app_id
-
-        print(f"APP :{app_id} MODULE: {module_id} METHOD: {method_id}")
+        # print(f"APP :{app_id} MODULE: {module_id} METHOD: {method_id}")
 
         try:
             tree = ET.fromstring(strXml)
