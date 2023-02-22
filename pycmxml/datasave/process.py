@@ -366,7 +366,14 @@ def fetch_api( cursor, module, methods , isJson):
 
     print(f"[red]JSON:[red][cyan] Printing ...[cyan]")
     print(f"Mdule from : [blue]{module}[blue]")
-    print(conf)
+    # print(conf)
+    # search for id in db for module
+    requests_module = "select id from sistemas.dbo.app_main where application =?"
+
+    cursor.execute(requests_module,(module,))
+    print("[red]MODULE ID is :")
+    print(cursor.fetch())
+
     print(conf.configuration['app_section'][module])
 # XML method
     url=conf.configuration['app_section'][module]['url']
@@ -402,7 +409,10 @@ def fetch_api( cursor, module, methods , isJson):
         # print(f"[gray]{strXml}[gray]")
         # tree = ET.parse(response.text)
         print(f"Trying element tree...")
+
         # ask for method_id in datatable and set :
+        # request_method_id = 'select id from sistemas.dbo.app_api_methods where '
+        # cursor.execute()
         try:
             tree = ET.fromstring(strXml)
             ns = {
