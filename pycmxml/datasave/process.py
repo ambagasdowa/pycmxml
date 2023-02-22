@@ -430,7 +430,8 @@ def fetch_api( cursor, module, methods , isJson):
             else:
                 try:
                     request_cursor = cursor(dictionary=True)
-                    db_query = cursor.execute("select IDENT_CURRENT(sistemas.dbo.app_block) as id")
+                    db_query = request_cursor.execute("select IDENT_CURRENT(sistemas.dbo.app_block) as id")
+                    print(typeof(db_query))
                     row = request_cursor.fetchone()
                     if row:
                         return json.dumps(row)
