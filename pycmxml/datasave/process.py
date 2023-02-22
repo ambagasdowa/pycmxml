@@ -372,7 +372,9 @@ def fetch_api( cursor, module, methods , isJson):
 
     cursor.execute(requests_module,(module,))
     print("[red]MODULE ID is :")
-    print(cursor.fetch())
+    # print(cursor.fetch())
+    for row in cursor.fetchall():
+        print(row)
 
     print(conf.configuration['app_section'][module])
 # XML method
