@@ -429,15 +429,15 @@ def fetch_api( cursor, module, methods , isJson):
                 print('no trees')
             else:
 
-                responseBlock = cursor.execute("select IDENT_CURRENT(sistemas.dbo.app_block) as id")
-                print(cursor.fetchall())
+                cursor.execute("select IDENT_CURRENT(sistemas.dbo.app_block) as id")
+                responseBlock = cursor.fetchone()
 
-                # if responseBlock is None:
-                #     print(f"getLastBlockId is none")
-                # else:
-                #     getLastBlockId = responseBlock.fetchone().id
-                #     print(f"getLastBlockId : {getLastBlockId}")
-                # cursor.commit()
+                if len(responseBlock) == 0:
+                    print(f"getLastBlockId is none")
+                else:
+                    getLastBlockId = responseBlock.id
+                    print(f"getLastBlockId : {getLastBlockId}")
+                cursor.commit()
 
                 loop = 0
                 dataset = {}
