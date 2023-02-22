@@ -436,7 +436,7 @@ def fetch_api( cursor, module, methods , isJson):
 
                     for eachBlock in position.iter():
                         if eachBlock.tag != 'return':
-                            dataset[eachBlock.tag] = eachBlock.text
+                            dataset[eachBlock.tag] = [eachBlock.text,module_id]
                     print(f"Saving records with loop -> {loop} ...")
                     savedata[loop] = dataset
                     loop += 1
