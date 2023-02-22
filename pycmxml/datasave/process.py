@@ -369,6 +369,10 @@ def fetch_api( cursor, module, methods , isJson):
     # print(conf)
     # search for id in db for module
     requests_module = "select id from sistemas.dbo.app_main where application =?"
+
+    request_method = 'select id,app_id from sistemas.dbo.app_api_methods where methods = ?'
+    request_block = ''
+
     cursor.execute(requests_module,(module,))
     module_id = cursor.fetchone().id
     cursor.commit()
@@ -406,12 +410,10 @@ def fetch_api( cursor, module, methods , isJson):
         strXml = str(response.text)
 
         # ask for method_id for modfile in datatable and set :
-        # request_method_id = 'select id from sistemas.dbo.app_api_methods where '
-        # request_method = 'select id,app_id from sistemas.dbo.app_api_methods where methods = ?'
-        # cursor.execute(request_method,(modfile,))
-        # resMethod = cursor.fetchone()
-        # cursor.commit()
-        # print(resMethod)
+        cursor.execute(request_method,(modfile,))
+        resMethod = cursor.fetchone()
+        cursor.commit()
+        print(resMethod)
         # method_id = resMethod.id
         # app_id = resMethod.app_id
 
