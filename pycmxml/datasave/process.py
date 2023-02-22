@@ -41,12 +41,29 @@ from jinja2 import Environment, PackageLoader, select_autoescape
 
 
 ## Inner libs
+# sys.path.append('/foo/bar/my_module') 
+# import config
 
-import pycmxml.config.config as conf
+
+
 import pycmxml.utils.utils as lib
 #import connection.db as db
 import pycmxml.datasave.save as dts
 
+
+
+
+from platformdirs import *
+appname = "pycmxml"
+appauthor = "Ambagasdowa"
+pycmxml_conf_dir = user_config_dir(appname)
+print(pycmxml_conf_dir)
+
+# sys.path.append(f"{pycmxml_conf_dir}")
+
+#import config as conf
+
+# import pycmxml.config.config as conf
 
 
 
@@ -431,6 +448,7 @@ def fetch_api( cursor, module, methods , isJson):
 
                 cursor(dictionary=True) #row=cursor.execute  json.dumps(row)
                 cursor.execute("select id from sistemas.dbo.app_black")
+                logging.info(f"Rows fetched..")
                 print(cursor.rowcount)
                 print(cursor.description)
 
