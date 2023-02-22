@@ -62,8 +62,7 @@ print(pycmxml_conf_dir)
 # sys.path.append(f"{pycmxml_conf_dir}")
 
 #import config as conf
-
-# import pycmxml.config.config as conf
+import pycmxml.config.config as conf
 
 
 
