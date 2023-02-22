@@ -429,20 +429,17 @@ def fetch_api( cursor, module, methods , isJson):
                 print('no trees')
             else:
 
+                cursor(dictionary=True)
                 try:
-                    request_cursor = cursor(dictionary=True)
-                    db_query = request_cursor.execute("select IDENT_CURRENT(sistemas.dbo.app_block) as id")
-                    # print(typeof(db_query))
-                    row = request_cursor.rowcount()
+                    cursor.execute("select IDENT_CURRENT(sistemas.dbo.app_block) as id")
+                except Exception as e:
+                    raise
+                else:
+                    row = cursor.rowcount()
                     print(row)
 
-                    # if row:
-                    #     return json.dumps(row)
-                    # else:
-                    #     return "Nothing found \n SQL Query: "
                 finally:
                     cursor.commit()
-
 
 
                 # cursor.execute("select IDENT_CURRENT(sistemas.dbo.app_block) as id")
