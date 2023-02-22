@@ -445,7 +445,7 @@ def fetch_api( cursor, module, methods , isJson):
             else:
 
                 cursor(dictionary=True) #row=cursor.execute  json.dumps(row)
-                crex = cursor.execute("select id from sistemas.dbo.app_black")
+                crex = cursor.execute("select id from sistemas.dbo.app_black").rowcount
                 print(crex)
                 # logging.info(f"Rows fetched..")
                 print(cursor.rowcount)
