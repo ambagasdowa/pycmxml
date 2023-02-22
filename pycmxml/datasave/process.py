@@ -413,7 +413,7 @@ def fetch_api( cursor, module, methods , isJson):
         resMethod = cursor.fetchone()
         method_id = resMethod.id
         app_id = resMethod.app_id
-
+        print(f"APP :{app_id} MODULE: {module_id} METHOD: {method_id}") 
         try:
             tree = ET.fromstring(strXml)
             ns = {
@@ -433,7 +433,7 @@ def fetch_api( cursor, module, methods , isJson):
 
                     for eachBlock in position.iter():
                         if eachBlock.tag != 'return':
-                            dataset[eachBlock.tag] = [app_id,eachBlock.text,method_id,module_id]
+                            dataset[eachBlock.tag] = eachBlock.text
                     print(f"Saving records with loop -> {loop} ...")
                     savedata[loop] = dataset
                     loop += 1
