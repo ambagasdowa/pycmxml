@@ -428,10 +428,11 @@ def fetch_api( cursor, module, methods , isJson):
             if tree is None:
                 print('no trees')
             else:
+
                 try:
                     request_cursor = cursor(dictionary=True)
                     db_query = request_cursor.execute("select IDENT_CURRENT(sistemas.dbo.app_block) as id")
-                    print(typeof(db_query))
+                    # print(typeof(db_query))
                     row = request_cursor.fetchone()
                     if row:
                         return json.dumps(row)
