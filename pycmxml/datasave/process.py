@@ -371,7 +371,7 @@ def fetch_api( cursor, module, methods , isJson):
     requests_module = "select id from sistemas.dbo.app_main where application =?"
     cursor.execute(requests_module,(module,))
     module_id = cursor.fetchone().id
-
+    cursor.commit()
     print(conf.configuration['app_section'][module])
 # XML method
     url=conf.configuration['app_section'][module]['url']
@@ -411,9 +411,13 @@ def fetch_api( cursor, module, methods , isJson):
 
         cursor.execute(request_method,(modfile,))
         resMethod = cursor.fetchone()
+        cursor.commit()
+        print(resMethod)
         method_id = resMethod.id
         app_id = resMethod.app_id
-        print(f"APP :{app_id} MODULE: {module_id} METHOD: {method_id}") 
+
+        print(f"APP :{app_id} MODULE: {module_id} METHOD: {method_id}")
+
         try:
             tree = ET.fromstring(strXml)
             ns = {
