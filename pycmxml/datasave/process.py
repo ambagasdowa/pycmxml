@@ -426,20 +426,24 @@ def fetch_api( cursor, module, methods , isJson):
                     'ns0':"http://webservice.web.integracao.sascar.com.br/",
             }
             if tree is None:
-                print('no trees')
+                print('no trees,no woods')
             else:
 
                 cursor(dictionary=True)
-                try:
-                    cursor.execute("select IDENT_CURRENT(sistemas.dbo.app_block) as id")
-                except Exception as e:
-                    raise
-                else:
-                    row = cursor.rowcount()
-                    print(row)
+                cursor.execute("select id from sistemas.dbo.app_black")
+                rows = cursor.rowcount
+                print(rows)
+                
+                # try:
+                #     cursor.execute("select IDENT_CURRENT(sistemas.dbo.app_block) as id")
+                # except Exception as e:
+                #     raise e
+                # else:
+                #     row = cursor.rowcount
+                #     print(row)
 
-                finally:
-                    cursor.commit()
+                # finally:
+                    # cursor.commit()
 
 
                 # cursor.execute("select IDENT_CURRENT(sistemas.dbo.app_block) as id")
@@ -450,7 +454,7 @@ def fetch_api( cursor, module, methods , isJson):
                 # else:
                 #     getLastBlockId = responseBlock.id
                 #     print(f"getLastBlockId : {getLastBlockId}")
-                # cursor.commit()
+                cursor.commit()
 
                 loop = 0
                 dataset = {}
