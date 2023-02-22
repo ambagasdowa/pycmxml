@@ -413,9 +413,9 @@ def fetch_api( cursor, module, methods , isJson):
         cursor.execute(request_method,(modfile,))
         resMethod = cursor.fetchone()
         cursor.commit()
-        print(resMethod)
-        # method_id = resMethod.id
-        # app_id = resMethod.app_id
+        # print(resMethod)
+        method_id = resMethod.id
+        app_id = resMethod.app_id
 
         # print(f"APP :{app_id} MODULE: {module_id} METHOD: {method_id}")
 
@@ -438,7 +438,7 @@ def fetch_api( cursor, module, methods , isJson):
 
                     for eachBlock in position.iter():
                         if eachBlock.tag != 'return':
-                            dataset[eachBlock.tag] = [eachBlock.text,module_id]
+                            dataset[eachBlock.tag] = [app_id,eachBlock.text,module_id,method_id]
                     print(f"Saving records with loop -> {loop} ...")
                     savedata[loop] = dataset
                     loop += 1
