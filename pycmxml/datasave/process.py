@@ -430,7 +430,7 @@ def fetch_api( cursor, module, methods , isJson):
             else:
 
                 getLastBlockId = "select IDENT_CURRENT(sistemas.dbo.app_block) as id"
-                getLastBlockId = cursor.fetchone().id
+                getLastBlockId = cursor.fetchone()[0]
                 cursor.commit()
                 print(f"getLastBlockId : {getLastBlockId}") 
 
