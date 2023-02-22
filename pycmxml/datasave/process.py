@@ -463,7 +463,7 @@ def fetch_api( cursor, module, methods , isJson):
                 print('no trees,no woods')
             else:
 
-                pass
+                # pass
                     # try:
                     #     cursor.execute("select IDENT_CURRENT(sistemas.dbo.app_block) as id")
                     # except Exception as e:
