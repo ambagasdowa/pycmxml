@@ -433,13 +433,15 @@ def fetch_api( cursor, module, methods , isJson):
                     request_cursor = cursor(dictionary=True)
                     db_query = request_cursor.execute("select IDENT_CURRENT(sistemas.dbo.app_block) as id")
                     # print(typeof(db_query))
-                    row = request_cursor.fetchone()
-                    if row:
-                        return json.dumps(row)
-                    else:
-                        return "Nothing found \n SQL Query: "
-                finally:
-                    cursor.commit()
+                    row = request_cursor.rowcount()
+                    print(row)
+
+                    # if row:
+                    #     return json.dumps(row)
+                    # else:
+                    #     return "Nothing found \n SQL Query: "
+                # finally:
+                    # cursor.commit()
 
 
 
