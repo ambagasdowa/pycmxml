@@ -445,37 +445,38 @@ def fetch_api( cursor, module, methods , isJson):
             else:
 
                 cursor(dictionary=True) #row=cursor.execute  json.dumps(row)
-                crex = cursor.execute("select id from sistemas.dbo.app_black").rowcount
-                print(crex)
-                # logging.info(f"Rows fetched..")
-                print(cursor.rowcount)
-                print(cursor.description)
+                if cursor.execute("select id from sistemas.dbo.app_black") is None:
+                    print('ERROR inDB')
+                else:
+                    # logging.info(f"Rows fetched..")
+                    print(cursor.rowcount)
+                    print(cursor.description)
 
-                rows = cursor.fetchall()
-                print(len(rows))
-
-
-                # try:
-                #     cursor.execute("select IDENT_CURRENT(sistemas.dbo.app_block) as id")
-                # except Exception as e:
-                #     raise e
-                # else:
-                #     row = cursor.rowcount
-                #     print(row)
-
-                # finally:
-                    # cursor.commit()
+                    rows = cursor.fetchall()
+                    print(len(rows))
 
 
-                # cursor.execute("select IDENT_CURRENT(sistemas.dbo.app_block) as id")
-                # responseBlock = cursor.fetchone()
+                    # try:
+                    #     cursor.execute("select IDENT_CURRENT(sistemas.dbo.app_block) as id")
+                    # except Exception as e:
+                    #     raise e
+                    # else:
+                    #     row = cursor.rowcount
+                    #     print(row)
 
-                # if len(responseBlock) == 0:
-                #     print(f"getLastBlockId is none")
-                # else:
-                #     getLastBlockId = responseBlock.id
-                #     print(f"getLastBlockId : {getLastBlockId}")
-                cursor.commit()
+                    # finally:
+                        # cursor.commit()
+
+
+                    # cursor.execute("select IDENT_CURRENT(sistemas.dbo.app_block) as id")
+                    # responseBlock = cursor.fetchone()
+
+                    # if len(responseBlock) == 0:
+                    #     print(f"getLastBlockId is none")
+                    # else:
+                    #     getLastBlockId = responseBlock.id
+                    #     print(f"getLastBlockId : {getLastBlockId}")
+                    cursor.commit()
 
                 loop = 0
                 dataset = {}
