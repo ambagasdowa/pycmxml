@@ -379,6 +379,25 @@ def fetch_api( cursor, module, methods , isJson):
     ## Pretty Printing JSON string back
     #print(json.dumps(person_dict, indent = 4, sort_keys=True))
 
+
+    # TEsting blocks
+    cursor(dictionary=True) #row=cursor.execute  json.dumps(row)
+    if cursor.execute("select id from sistemas.dbo.app_black") is None:
+        print('ERROR inDB')
+    else:
+        # logging.info(f"Rows fetched..")
+        print(cursor.rowcount)
+        print(cursor.description)
+
+        rows = cursor.fetchall()
+        print(len(rows))
+
+        cursor.commit()
+
+
+
+
+
     print(f"[red]JSON:[red][cyan] Printing ...[cyan]")
     print(f"Mdule from : [blue]{module}[blue]")
     # print(conf)
@@ -444,18 +463,7 @@ def fetch_api( cursor, module, methods , isJson):
                 print('no trees,no woods')
             else:
 
-                cursor(dictionary=True) #row=cursor.execute  json.dumps(row)
-                if cursor.execute("select id from sistemas.dbo.app_black") is None:
-                    print('ERROR inDB')
-                else:
-                    # logging.info(f"Rows fetched..")
-                    print(cursor.rowcount)
-                    print(cursor.description)
-
-                    rows = cursor.fetchall()
-                    print(len(rows))
-
-
+                pass
                     # try:
                     #     cursor.execute("select IDENT_CURRENT(sistemas.dbo.app_block) as id")
                     # except Exception as e:
@@ -476,7 +484,6 @@ def fetch_api( cursor, module, methods , isJson):
                     # else:
                     #     getLastBlockId = responseBlock.id
                     #     print(f"getLastBlockId : {getLastBlockId}")
-                    cursor.commit()
 
                 loop = 0
                 dataset = {}
