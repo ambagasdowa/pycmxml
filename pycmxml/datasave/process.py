@@ -431,8 +431,11 @@ def fetch_api( cursor, module, methods , isJson):
 
                 cursor.execute("select IDENT_CURRENT(sistemas.dbo.app_block) as id")
                 getLastBlockId = cursor.fetchone().id
+                if cursor.fetchone().id is None:
+                    print(f"getLastBlockId is none")
+                else:
+                    print(f"getLastBlockId : {getLastBlockId}")
                 cursor.commit()
-                print(f"getLastBlockId : {getLastBlockId}")
 
                 loop = 0
                 dataset = {}
