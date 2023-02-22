@@ -440,8 +440,8 @@ def fetch_api( cursor, module, methods , isJson):
                     #     return json.dumps(row)
                     # else:
                     #     return "Nothing found \n SQL Query: "
-                # finally:
-                    # cursor.commit()
+                finally:
+                    cursor.commit()
 
 
 
