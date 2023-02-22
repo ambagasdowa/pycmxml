@@ -429,11 +429,12 @@ def fetch_api( cursor, module, methods , isJson):
                 print('no trees')
             else:
 
-                cursor.execute("select IDENT_CURRENT(sistemas.dbo.app_block) as id")
+                responseBlock = cursor.execute("select IDENT_CURRENT(sistemas.dbo.app_block) as id")
                 # getLastBlockId = cursor.fetchone().id
-                if cursor.fetchone().id is None:
+                if responseBlock is None:
                     print(f"getLastBlockId is none")
                 else:
+                    getLastBlockId = responseBlock.fetchone().id
                     print(f"getLastBlockId : {getLastBlockId}")
                 cursor.commit()
 
