@@ -381,7 +381,7 @@ def fetch_api( cursor, module, methods , isJson):
 
 
     # TEsting blocks
-    cursor(dictionary=True) #row=cursor.execute  json.dumps(row)
+    # cursor(dictionary=True) #row=cursor.execute  json.dumps(row)
     if cursor.execute("select id from sistemas.dbo.app_black") is None:
         print('ERROR inDB')
     else:
