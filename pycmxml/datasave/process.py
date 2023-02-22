@@ -369,14 +369,8 @@ def fetch_api( cursor, module, methods , isJson):
     # print(conf)
     # search for id in db for module
     requests_module = "select id from sistemas.dbo.app_main where application =?"
-
     cursor.execute(requests_module,(module,))
-    print("[red]MODULE ID is :")
-    
-    print(cursor.fetchone().id)
-
-    # for row in cursor.fetchall():
-    #     print(row[0])
+    module_id = cursor.fetchone().id
 
     print(conf.configuration['app_section'][module])
 # XML method
@@ -410,22 +404,22 @@ def fetch_api( cursor, module, methods , isJson):
         body = template.render()
         response = requests.post(url,data=body,headers=headers)
         strXml = str(response.text)
-        # print(f"[gray]{strXml}[gray]")
-        # tree = ET.parse(response.text)
-        print(f"Trying element tree...")
 
-        # ask for method_id in datatable and set :
+        # ask for method_id for modfile in datatable and set :
         # request_method_id = 'select id from sistemas.dbo.app_api_methods where '
-        # cursor.execute()
+        request_method = 'select id,app_id from sistemas.dbo.app_api_methods where methods = ?'
+
+        cursor.execute(request_method,(modfile,))
+        resMethod = cursor.fetchone()
+        method_id = resMethod.id
+        app_id = resMethod.app_id
+
         try:
             tree = ET.fromstring(strXml)
             ns = {
                     'S':"http://schemas.xmlsoap.org/soap/envelope/",
                     'ns0':"http://webservice.web.integracao.sascar.com.br/",
             }
-            # Build namespace 
-            # nZero = f".//ns0:{modfile}Response"
-            # print(nZero)
             if tree is None:
                 print('no trees')
             else:
@@ -439,7 +433,7 @@ def fetch_api( cursor, module, methods , isJson):
 
                     for eachBlock in position.iter():
                         if eachBlock.tag != 'return':
-                            dataset[eachBlock.tag] = eachBlock.text
+                            dataset[eachBlock.tag] = [module.id,eachBlock.text,method_id,app_id]
                     print(f"Saving records with loop -> {loop} ...")
                     savedata[loop] = dataset
                     loop += 1
