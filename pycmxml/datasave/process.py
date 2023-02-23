@@ -476,7 +476,7 @@ def fetch_api( cursor, module, methods , isJson):
                     loop = 1 #No data then set the firts block
                 else:
                     loop = responseBlock.id
-                    print(f"getLastBlockId : {getLastBlockId}")
+                    print(f"getLastBlockId : {responseBlock.id}")
 
                 # loop = 0
                 dataset = {}
@@ -489,6 +489,7 @@ def fetch_api( cursor, module, methods , isJson):
                         if eachBlock.tag != 'return':
                             dataset[eachBlock.tag] = [app_id,eachBlock.text,module_id,method_id]
                     print(f"Saving records with loop -> {loop} ...")
+                    print(dataset)
                     savedata[loop] = dataset
                     loop += 1
 
