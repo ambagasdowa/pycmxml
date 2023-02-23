@@ -388,7 +388,8 @@ def fetch_api( cursor, module, methods , isJson):
     cursor.commit()
 
     print(f"[red]Query for roews") 
-    cursor.execute("select id from sistemas.dbo.app_black",)
+    cursor(dictionary=True) #row=cursor.execute  json.dumps(row)
+    cursor.execute("select id from sistemas.dbo.app_black")
 
     rows = cursor.fetchall()
     print (rows)
