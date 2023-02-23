@@ -493,7 +493,7 @@ def fetch_api( cursor, module, methods , isJson):
                     savedata[loop] = dataset
                     loop += 1
 
-                print(savedata)
+                # print(savedata)
 
         except Exception as e:
             raise e
