@@ -514,24 +514,27 @@ def fetch_api( cursor, module, methods , isJson):
 
 
 def request_crud(cursor,query,table,data,crud):
-    match crud:
-        case 'c':
-            cursor.execute(query,(data,))
-            cursor.commit()
+    if(crud == 'c'):
+        cursor.execute(query,(data,))
+        cursor.commit()
 
-            cursor.execute(tableBlock)
-            responseBlock = cursor.rowcount
-            print(cursor.description)
-            if responseBlock == -1:
-                print(f"getLastBlockId is none")
-                return None #No data then set the firts block
-            else:
-                return cursor.fetchone().id
-        case 'r':
-            return "Not found"
-        case 'u':
-            return "I'm a teapot"
-        case 'd':
-            return "I'm a teapot"
-        case _:
-            return "Something's wrong with the internet"
+        cursor.execute(tableBlock)
+        responseBlock = cursor.rowcount
+        print(cursor.description)
+        cursor.commit()
+        if responseBlock == -1:
+            print(f"getLastBlockId is none")
+            return None #No data then set the firts block
+        else:
+            return cursor.fetchone().id
+    elif(crud == 'r'):
+         return "Not found"
+    elif(crud == "u"):
+        return "I'm a teapot"
+    elif(crud == "d"):
+        return "I'm a teapot"
+    else:
+        return "Something's wrong with the internet"
+
+
+
