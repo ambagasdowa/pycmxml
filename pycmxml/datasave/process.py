@@ -441,6 +441,13 @@ def fetch_api( cursor, module, methods , isJson):
         method_id = resMethod.id
         app_id = resMethod.app_id
 
+        created = datetime.now().isoformat(timespec='seconds')
+        status= 1
+        insertBlock = 'insert into sistemas.dbo.app_block(app_methods_id,created,[status],) values(?,?,?)'
+
+        blockData = (method_id,created,status,)
+        tableBlock = "select IDENT_CURRENT('sistemas.dbo.app_black') as id"
+
         # print(f"APP :{app_id} MODULE: {module_id} METHOD: {method_id}")
 
         try:
@@ -466,19 +473,19 @@ def fetch_api( cursor, module, methods , isJson):
                         # cursor.commit()
 
                 # cursor(dictionary=True) #row=cursor.execute  json.dumps(row)
-                cursor.execute("select IDENT_CURRENT('sistemas.dbo.app_black') as id")
-                responseBlock = cursor.rowcount
-                print(cursor.description)
-                cursor.commit()
+                # cursor.execute(tableBlock)
+                # responseBlock = cursor.rowcount
+                # print(cursor.description)
+                # cursor.commit()
 
-                if responseBlock == -1:
-                    print(f"getLastBlockId is none")
-                    loop = 1 #No data then set the firts block
-                else:
-                    loop = responseBlock.id
-                    print(f"getLastBlockId : {responseBlock.id}")
+                # if responseBlock == -1:
+                #     print(f"getLastBlockId is none")
+                #     loop = 1 #No data then set the firts block
+                # else:
+                #     loop = responseBlock.id
+                #     print(f"getLastBlockId : {responseBlock.id}")
 
-                # loop = 0
+                loop = 0
                 dataset = {}
                 savedata={}
 
@@ -489,6 +496,9 @@ def fetch_api( cursor, module, methods , isJson):
                         if eachBlock.tag != 'return':
                             dataset[eachBlock.tag] = [app_id,eachBlock.text,module_id,method_id]
                     print(f"Saving records with loop -> {loop} ...")
+                    #firts save a block with method descriptor 
+                    blockId = request_crud(cursor,insertBlock,tableBlock,blockData,'c')
+                    print(blockId)
                     print(dataset)
                     savedata[loop] = dataset
                     loop += 1
@@ -503,4 +513,25 @@ def fetch_api( cursor, module, methods , isJson):
 
 
 
+def request_crud(cursor,query,table,data,crud):
+    match crud:
+        case 'c':
+            cursor.execute(query,(data,))
+            cursor.commit()
 
+            cursor.execute(tableBlock)
+            responseBlock = cursor.rowcount
+            print(cursor.description)
+            if responseBlock == -1:
+                print(f"getLastBlockId is none")
+                return None #No data then set the firts block
+            else:
+                return cursor.fetchone().id
+        case 'r':
+            return "Not found"
+        case 'u':
+            return "I'm a teapot"
+        case 'd':
+            return "I'm a teapot"
+        case _:
+            return "Something's wrong with the internet"
