@@ -380,25 +380,12 @@ def fetch_api( cursor, module, methods , isJson):
     #print(json.dumps(person_dict, indent = 4, sort_keys=True))
 
 
-    # TEsting blocks
     # cursor(dictionary=True) #row=cursor.execute  json.dumps(row)
     cursor.execute("select IDENT_CURRENT('sistemas.dbo.app_black') as id")
     print(cursor.rowcount)
-    # print(cursor.description)
-    cursor.commit()
-
-    print(f"[red]Query for roews") 
-    cursor(dictionary=True) #row=cursor.execute  json.dumps(row)
-    cursor.execute("select id from sistemas.dbo.app_black")
-
-    rows = cursor.fetchall()
-    print (rows)
-    print(len(rows))
+    print(cursor.description)
 
     cursor.commit()
-
-
-
 
 
     print(f"[red]JSON:[red][cyan] Printing ...[cyan]")
@@ -478,17 +465,20 @@ def fetch_api( cursor, module, methods , isJson):
                     # finally:
                         # cursor.commit()
 
+                # cursor(dictionary=True) #row=cursor.execute  json.dumps(row)
+                cursor.execute("select IDENT_CURRENT('sistemas.dbo.app_black') as id")
+                responseBlock = cursor.rowcount
+                print(cursor.description)
+                cursor.commit()
 
-                    # cursor.execute("select IDENT_CURRENT(sistemas.dbo.app_block) as id")
-                    # responseBlock = cursor.fetchone()
+                if responseBlock == -1:
+                    print(f"getLastBlockId is none")
+                    loop = 0
+                else:
+                    loop = responseBlock.id
+                    print(f"getLastBlockId : {getLastBlockId}")
 
-                    # if len(responseBlock) == 0:
-                    #     print(f"getLastBlockId is none")
-                    # else:
-                    #     getLastBlockId = responseBlock.id
-                    #     print(f"getLastBlockId : {getLastBlockId}")
-
-                loop = 0
+                # loop = 0
                 dataset = {}
                 savedata={}
 
