@@ -382,17 +382,17 @@ def fetch_api( cursor, module, methods , isJson):
 
     # TEsting blocks
     # cursor(dictionary=True) #row=cursor.execute  json.dumps(row)
-    if cursor.execute("select id from sistemas.dbo.app_black") is None:
-        print('ERROR inDB')
-    else:
-        # logging.info(f"Rows fetched..")
-        print(cursor.rowcount)
-        print(cursor.description)
 
-        rows = cursor.fetchall()
-        print(len(rows))
+    cursor.execute("select id from sistemas.dbo.app_black")
 
-        cursor.commit()
+    # logging.info(f"Rows fetched..")
+    print(cursor.rowcount)
+    print(cursor.description)
+
+    rows = cursor.fetchall()
+    print(len(rows))
+
+    cursor.commit()
 
 
 
