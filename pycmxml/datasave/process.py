@@ -473,7 +473,7 @@ def fetch_api( cursor, module, methods , isJson):
 
                 if responseBlock == -1:
                     print(f"getLastBlockId is none")
-                    loop = 0
+                    loop = 1 #No data then set the firts block
                 else:
                     loop = responseBlock.id
                     print(f"getLastBlockId : {getLastBlockId}")
