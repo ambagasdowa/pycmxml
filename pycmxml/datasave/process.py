@@ -394,7 +394,7 @@ def fetch_api( cursor, module, methods , isJson):
     cursor.execute("select id from sistemas.dbo.app_black",)
 
     rows = cursor.fetchall()
-    print rows
+    print (rows)
     print(len(rows))
 
     cursor.commit()
