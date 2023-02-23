@@ -383,14 +383,18 @@ def fetch_api( cursor, module, methods , isJson):
     # TEsting blocks
     # cursor(dictionary=True) #row=cursor.execute  json.dumps(row)
     cursor.execute("select IDENT_CURRENT('sistemas.dbo.app_black') as id")
+    print(cursor.rowcount)
+    print(cursor.description)
 
-    # cursor.execute("select id from sistemas.dbo.app_black")
+    cursor.commit()
 
-    # logging.info(f"Rows fetched..")
-    # print(cursor.rowcount)
-    # print(cursor.description)
+
+
+
+    cursor.execute("select id from sistemas.dbo.app_black",)
 
     rows = cursor.fetchall()
+    print rows
     print(len(rows))
 
     cursor.commit()
