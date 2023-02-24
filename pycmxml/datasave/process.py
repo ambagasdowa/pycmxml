@@ -64,7 +64,8 @@ import pycmxml.datasave.save as dts
 #import config as conf
 
 
-
+args=get_args()
+print(args)
 
 def parse(cursor,config,fecha):
 # === === === === === === === ===  Main Section  === === === === === === === === #
