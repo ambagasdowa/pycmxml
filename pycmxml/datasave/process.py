@@ -446,7 +446,7 @@ def fetch_api( cursor, module, methods , isJson):
         insertBlock = 'insert into sistemas.dbo.app_block(app_api_methods_id,created,status) values(?,?,?)'
 
         blockData = (method_id,created,status,)
-        tableBlock = "sistemas.dbo.app_black"
+        tableBlock = "sistemas.dbo.app_block"
 
         # print(f"APP :{app_id} MODULE: {module_id} METHOD: {method_id}")
 
@@ -519,7 +519,7 @@ def request_crud(cursor,query,lastIdTable,data,crud):
         print(cursor.description)
         # Insert the data and return the id
         cursor.execute(query,data)
-        # cursor.commit()
+        cursor.commit()
         print("Trying to fetch the last id")
         # requestId = f"select SCOPE_IDENTITY()"
         requestId = f"select IDENT_CURRENT('{lastIdTable}') as id"
