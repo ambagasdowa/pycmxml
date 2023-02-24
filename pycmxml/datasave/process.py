@@ -517,6 +517,8 @@ def request_crud(cursor,query,lastIdTable,data,crud):
 
     if crud == 'c':
         print(type(data))
+        print(data)
+        print(query)
         cursor.execute(query,data)
         cursor.commit()
 
@@ -529,7 +531,6 @@ def request_crud(cursor,query,lastIdTable,data,crud):
         #     return None #No data then set the firts block
         # else:
         #     return cursor.fetchone().id
-        print(data)
         return f"insert{crud} : {lastIdTable} {query}..."
     elif crud == 'r':
         return "Not found"
