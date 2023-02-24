@@ -525,7 +525,8 @@ def request_crud(cursor,query,lastIdTable,data,crud):
         requestId = f"select IDENT_CURRENT('{lastIdTable}') as id"
         print(requestId)
         cursor.execute(requestId)
-        responseBlock = cursor.fetchone()[0]
+        responseBlock = cursor.fetchone()
+        print(responseBlock)
         cursor.commit()
         # if responseBlock == -1:
         #     print(f"getLastBlockId is none")
