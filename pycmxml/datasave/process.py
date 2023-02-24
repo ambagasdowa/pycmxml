@@ -522,7 +522,7 @@ def request_crud(cursor,query,lastIdTable,data,crud):
         cursor.commit()
         print("Trying to fetch the last id")
         # requestId = f"select SCOPE_IDENTITY()"
-        requestId = f"select IDENT_CURRENT({lastIdTable}) as id"
+        requestId = f"select IDENT_CURRENT('{lastIdTable}') as id"
         print(requestId)
         cursor.execute(requestId)
         responseBlock = cursor.fetchone()[0]
