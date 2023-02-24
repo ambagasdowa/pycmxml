@@ -99,15 +99,16 @@ def main():
     # sys.tracebacklimit = 0
 
     args = get_args()
+    debug = args.debug
     # === === === === === === === ===  Config Section  === === === === === === === ===
     if (args.createConfig):
-        conf.create_config()
-        print("[green]exit?")
+        conf.create_config(args)
+        if debug:
+            print("[green]exit?")
         exit()
 
     config = conf.configuration
     # === === === === === === === ===  Library Section  === === === === === === === === #
-    debug = args.debug
     if debug:
         print("[green]" + lib.camelize('initializing')+"...[green]")
         print(args)
