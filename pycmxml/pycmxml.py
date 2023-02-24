@@ -81,8 +81,11 @@ def get_args():
     parser.add_argument('-m', '--modules',
                         help='Set the modules to run for get data from api ws , use whith --application params, and get entry as  module1,module2,...'
                         )
-    # parser.add_argument('--version', action='version',
-    #                     version='%(prog)s {version}'.format(version=__version__))
+    parser.add_argument('-v', '--debug', action='store_true',
+                        help='Set the debug output to true'
+                        )
+    parser.add_argument('--version', action='version',
+                        version='%(prog)s {version}'.format(version=__version__))
     # parser.print_help()
     # parser.parse_args(['-h'])
     return parser.parse_args()
@@ -95,24 +98,28 @@ def main():
     # === === === === === === === ===  Config Section  === === === === === === === ===
     config = conf.configuration
     # === === === === === === === ===  Library Section  === === === === === === === === #
-
-    print("[green]" + lib.camelize('initializing')+"...[green]")
-    print(args)
+    debug = args.debug
+    if debug :
+        print("[green]" + lib.camelize('initializing')+"...[green]")
+        print(args)
 
     if (args.application in x):
-        print(f"[cyan]Set app to cursor: [cyan]")
+        if debug :
+            print(f"[cyan]Set app to cursor: [cyan]")
         # then execute prf or
         if (args.application == 'cmex'):
-
-            for i in track(range(2), description="Connecting to database ..."):
-                time.sleep(1)  # Simulate work being done
+            if debug :
+                for i in track(range(2), description="Connecting to database ..."):
+                    time.sleep(1)  # Simulate work being done
             cursor = db.connect(config)
 
             if(args.config == False):
-                print("[red]Config[red] : [cyan]off[cyan]")
+                if debug:
+                    print("[red]Config[red] : [cyan]off[cyan]")
                 fecha = args.dates
             else:
-                print("[red]Config[red] : [cyan]on[cyan]")
+                if debug:
+                    print("[red]Config[red] : [cyan]on[cyan]")
                 if (config['service_params']['fecha'] == '?'):
                     fecha = (str(date.today() - timedelta(days=1)))
                 else:
@@ -121,7 +128,8 @@ def main():
             expanded_dates = lib.date_expand(fecha)
 
             for dt in expanded_dates:
-                print("[blue] Execute with fecha : [blue]"+str(dt))
+                if debug:
+                    print("[blue] Execute with fecha : [blue]"+str(dt))
                 try:
                     prf.parse(cursor, config, fecha=dt)
                 except FileNotFoundError:
@@ -129,12 +137,12 @@ def main():
             cursor.close()
 
         if (args.application == 'michelin'):
-
-            for i in track(range(2), description="Connecting to database ..."):
-                time.sleep(1)  # Simulate work being done
+            if debug:
+                for i in track(range(2), description="Connecting to database ..."):
+                    time.sleep(1)  # Simulate work being done
             cursor = db.connect(config)
-
-            print(f"[red]Execute[red]: [cyan]Michelin app[cyan]")
+            if debug:
+                print(f"[red]Execute[red]: [cyan]Michelin app[cyan]")
             try:
                 prf.fetch_api(cursor, args.application, args.modules, False)
             except:

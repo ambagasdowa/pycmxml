@@ -462,31 +462,6 @@ def fetch_api( cursor, module, methods , isJson):
                 print('no trees,no woods')
             else:
 
-                # pass
-                    # try:
-                    #     cursor.execute("select IDENT_CURRENT(sistemas.dbo.app_block) as id")
-                    # except Exception as e:
-                    #     raise e
-                    # else:
-                    #     row = cursor.rowcount
-                    #     print(row)
-
-                    # finally:
-                        # cursor.commit()
-
-                # cursor(dictionary=True) #row=cursor.execute  json.dumps(row)
-                # cursor.execute(tableBlock)
-                # responseBlock = cursor.rowcount
-                # print(cursor.description)
-                # cursor.commit()
-
-                # if responseBlock == -1:
-                #     print(f"getLastBlockId is none")
-                #     loop = 1 #No data then set the firts block
-                # else:
-                #     loop = responseBlock.id
-                #     print(f"getLastBlockId : {responseBlock.id}")
-
                 loop = 0
                 dataset = {}
                 savedata={}
@@ -501,6 +476,7 @@ def fetch_api( cursor, module, methods , isJson):
                     #firts save a block with method descriptor 
                     blockId = request_crud(cursor,insertBlock,tableBlock,blockData,'c',False,True)
                     print(blockId)
+                    print(f"Prepare the data for save ...")
                     saveTbl = []
                     for tpl in dataset.items():
                         saveTbl.append((blockId,)+tpl+(created,status,))
@@ -522,7 +498,6 @@ def fetch_api( cursor, module, methods , isJson):
 def request_crud(cursor,query,lastIdTable,data,crud,matrix,responseId):
 
     if crud == 'c':
-        # print(cursor.description)
         # Insert the data and return the id
         if matrix == True:
             cursor.executemany(query,data)
@@ -539,15 +514,12 @@ def request_crud(cursor,query,lastIdTable,data,crud,matrix,responseId):
             return responseBlock
         else:
             return True
-
-
-
     elif crud == 'r':
-        return "Not found"
+        return "Not Implemented yet"
     elif crud == "u":
-        return "I'm a teapot"
+        return "Not Implemented yet"
     elif crud == "d" :
-        return "I'm a teapot"
+        return "Not Implemented yet"
     else:
         return "Something's wrong with the internet"
 
