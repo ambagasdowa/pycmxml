@@ -525,15 +525,14 @@ def request_crud(cursor,query,lastIdTable,data,crud):
         requestId = f"select IDENT_CURRENT('{lastIdTable}') as id"
         print(requestId)
         cursor.execute(requestId)
-        responseBlock = cursor.fetchone()
-        print(responseBlock)
+        responseBlock = cursor.fetchall().id
+        print(f"responseBlock : {responseBlock}")
         cursor.commit()
         # if responseBlock == -1:
         #     print(f"getLastBlockId is none")
         #     return None #No data then set the firts block
         # else:
         #     # idBlock = cursor.fetchone().id
-        #     print(f"responseBlock : {responseBlock}")
         #     return responseBlock
         return responseBlock
     elif crud == 'r':
