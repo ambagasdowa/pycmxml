@@ -64,8 +64,6 @@ import pycmxml.datasave.save as dts
 #import config as conf
 
 
-args=get_args()
-print(args)
 
 def parse(cursor,config,fecha):
 # === === === === === === === ===  Main Section  === === === === === === === === #
@@ -361,8 +359,14 @@ def parse(cursor,config,fecha):
 
 
 
-def fetch_api( cursor, module, methods , isJson):
-    print(f"[blue]fetch the method[blue]")
+def fetch_api( cursor, args , isJson=False):
+
+    module = args.application
+    methods = args.modules
+    debug = args.debug
+
+    if debug:
+        print(f"[blue]fetch the method[blue]")
 # JSON method
     #url = 'https://api.github.com/some/endpoint'
     #headers = {'user-agent': 'my-app/0.0.1'}
@@ -382,15 +386,15 @@ def fetch_api( cursor, module, methods , isJson):
 
 
     # cursor(dictionary=True) #row=cursor.execute  json.dumps(row)
-    cursor.execute("select IDENT_CURRENT('sistemas.dbo.app_black') as id")
-    print(cursor.rowcount)
-    print(cursor.description)
+    # cursor.execute("select IDENT_CURRENT('sistemas.dbo.app_black') as id")
+    # print(cursor.rowcount)
+    # print(cursor.description)
 
-    cursor.commit()
+    # cursor.commit()
 
-
-    print(f"[red]JSON:[red][cyan] Printing ...[cyan]")
-    print(f"Mdule from : [blue]{module}[blue]")
+    if debug:
+        print(f"[red]JSON:[red][cyan] Printing ...[cyan]")
+        print(f"Mdule from : [blue]{module}[blue]")
     # print(conf)
     # search for id in db for module
     requests_module = "select id from sistemas.dbo.app_main where application =?"
@@ -401,7 +405,8 @@ def fetch_api( cursor, module, methods , isJson):
     cursor.execute(requests_module,(module,))
     module_id = cursor.fetchone().id
     cursor.commit()
-    print(conf.configuration['app_section'][module])
+    if debug:
+        print(conf.configuration['app_section'][module])
 # XML method
     url=conf.configuration['app_section'][module]['url']
     headers=conf.configuration['app_section'][module]['headers']
@@ -427,9 +432,11 @@ def fetch_api( cursor, module, methods , isJson):
     for modfile in template_files:
 
         xfile = f"{module}/{modfile}.{ext}"
-        print(f"[red]Request for file: [red][green]{xfile}[green]")
+        if debug:
+            print(f"[red]Request for file: [red][green]{xfile}[green]")
         template = env.get_template(xfile)
-        print(template)
+        if debug:
+            print(template)
         body = template.render()
         response = requests.post(url,data=body,headers=headers)
         strXml = str(response.text)
@@ -473,15 +480,18 @@ def fetch_api( cursor, module, methods , isJson):
                     for eachBlock in position.iter():
                         if eachBlock.tag != 'return':
                             dataset[eachBlock.tag] = eachBlock.text
-                    print(f"Saving records with loop -> {loop} ...")
+                    if debug:
+                        print(f"Saving records with loop -> {loop} ...")
                     #firts save a block with method descriptor 
                     blockId = request_crud(cursor,insertBlock,tableBlock,blockData,'c',False,True)
-                    print(blockId)
-                    print(f"Prepare the data for save ...")
+                    if debug:
+                        print(blockId)
+                        print(f"Prepare the data for save ...")
                     saveTbl = []
                     for tpl in dataset.items():
                         saveTbl.append((blockId,)+tpl+(created,status,))
-                    print(saveTbl)
+                    if debug:
+                        print(saveTbl)
                     saveBlock = request_crud(cursor,insertData,tableData,saveTbl,'c',True,False)
                     savedata[loop] = dataset
                     loop += 1
@@ -496,7 +506,7 @@ def fetch_api( cursor, module, methods , isJson):
 
 
 
-def request_crud(cursor,query,lastIdTable,data,crud,matrix,responseId):
+def request_crud(cursor,query,lastIdTable,data,crud,matrix,responseId=False):
 
     if crud == 'c':
         # Insert the data and return the id
@@ -506,7 +516,7 @@ def request_crud(cursor,query,lastIdTable,data,crud,matrix,responseId):
             cursor.execute(query,data)
         cursor.commit()
 
-        if responseId == True: 
+        if responseId == True:
             requestId = f"select IDENT_CURRENT('{lastIdTable}') as id"
             # print(requestId)
             cursor.execute(requestId)
