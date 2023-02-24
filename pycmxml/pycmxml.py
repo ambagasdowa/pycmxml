@@ -103,6 +103,7 @@ def main():
     # === === === === === === === ===  Config Section  === === === === === === === ===
     if (args.createConfig):
         conf.create_config()
+        print("exit?")
         exit()
 
     config = conf.configuration
