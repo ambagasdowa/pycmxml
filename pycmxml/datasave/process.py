@@ -497,8 +497,11 @@ def fetch_api( cursor, module, methods , isJson):
                             dataset[eachBlock.tag] = [eachBlock.tag,eachBlock.text]
                     print(f"Saving records with loop -> {loop} ...")
                     #firts save a block with method descriptor 
-                    blockId = request_crud(cursor,insertBlock,tableBlock,blockData,'c')
+                    blockId = request_crud(cursor,insertBlock,tableBlock,blockData,'c',True)
                     print(blockId)
+                    for tpl in dataset.items():
+                        print(tpl)
+
                     print(dataset)
                     savedata[loop] = dataset
                     loop += 1
@@ -513,29 +516,22 @@ def fetch_api( cursor, module, methods , isJson):
 
 
 
-def request_crud(cursor,query,lastIdTable,data,crud):
+def request_crud(cursor,query,lastIdTable,data,crud,responseId):
 
     if crud == 'c':
-        print(cursor.description)
+        # print(cursor.description)
         # Insert the data and return the id
         cursor.execute(query,data)
         cursor.commit()
-        print("Trying to fetch the last id")
-        # requestId = f"select SCOPE_IDENTITY()"
-        requestId = f"select IDENT_CURRENT('{lastIdTable}') as id"
-        print(requestId)
-        cursor.execute(requestId)
-        responseBlock = cursor.fetchone().id
-        # for rid in responseBlock:
-        #     print(f"responseBlock : {rid}")
-        cursor.commit()
-        # if responseBlock == -1:
-        #     print(f"getLastBlockId is none")
-        #     return None #No data then set the firts block
-        # else:
-        #     # idBlock = cursor.fetchone().id
-        #     return responseBlock
-        return responseBlock
+        if responseId == True: 
+            requestId = f"select IDENT_CURRENT('{lastIdTable}') as id"
+            # print(requestId)
+            cursor.execute(requestId)
+            responseBlock = cursor.fetchone().id
+            cursor.commit()
+            return responseBlock
+        else:
+            return True
     elif crud == 'r':
         return "Not found"
     elif crud == "u":
