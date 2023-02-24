@@ -77,7 +77,7 @@ def get_args():
     parser.add_argument('-c', '--config', action='store_true',
                         help='Takes dates from configuration values'
                         )
-    parser.add_argument('-cc', '--createConfig',
+    parser.add_argument('-cc', '--createConfig',action='store_true',
                         help='Create configuration files '
                         )
     parser.add_argument('-x', '--application',
@@ -103,7 +103,7 @@ def main():
     # === === === === === === === ===  Config Section  === === === === === === === ===
     if (args.createConfig):
         conf.create_config()
-        exit
+        exit()
 
     config = conf.configuration
     # === === === === === === === ===  Library Section  === === === === === === === === #
