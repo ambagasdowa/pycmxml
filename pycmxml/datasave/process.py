@@ -493,7 +493,7 @@ def fetch_api( cursor, args , isJson=False):
                     if debug:
                         print(saveTbl)
                     saveBlock = request_crud(cursor,insertData,tableData,saveTbl,'c',True,False)
-                    print(f"Success save datablock:{blockId}")
+                    print(f"[blue]Success save datablock[/blue]:[cyan]{blockId}")
                     # savedata[loop] = dataset
                     loop += 1
 
