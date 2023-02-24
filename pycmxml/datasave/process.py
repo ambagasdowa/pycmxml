@@ -448,6 +448,8 @@ def fetch_api( cursor, module, methods , isJson):
         blockData = (method_id,created,status,)
         tableBlock = "sistemas.dbo.app_block"
 
+        insertData = 'insert into sistemas.dbo.app_api_data(app_block_id,tag,value,created,status) values(?,?,?,?,?)'
+        tableData = "sistemas.dbo.app_api_data"
         # print(f"APP :{app_id} MODULE: {module_id} METHOD: {method_id}")
 
         try:
@@ -497,14 +499,13 @@ def fetch_api( cursor, module, methods , isJson):
                             dataset[eachBlock.tag] = eachBlock.text
                     print(f"Saving records with loop -> {loop} ...")
                     #firts save a block with method descriptor 
-                    blockId = request_crud(cursor,insertBlock,tableBlock,blockData,'c',True)
+                    blockId = request_crud(cursor,insertBlock,tableBlock,blockData,'c',False,True)
                     print(blockId)
                     saveTbl = []
                     for tpl in dataset.items():
                         saveTbl.append((blockId,)+tpl+(created,status,))
                     print(saveTbl)
-
-                    print(dataset)
+                    saveBlock = request_crud(cursor,insertData,tableData,saveTbl,'c',True,False)
                     savedata[loop] = dataset
                     loop += 1
 
@@ -518,13 +519,17 @@ def fetch_api( cursor, module, methods , isJson):
 
 
 
-def request_crud(cursor,query,lastIdTable,data,crud,responseId):
+def request_crud(cursor,query,lastIdTable,data,crud,matrix,responseId):
 
     if crud == 'c':
         # print(cursor.description)
         # Insert the data and return the id
-        cursor.execute(query,data)
+        if matrix == True:
+            cursor.executemany(query,data)
+        else:
+            cursor.execute(query,data)
         cursor.commit()
+
         if responseId == True: 
             requestId = f"select IDENT_CURRENT('{lastIdTable}') as id"
             # print(requestId)
@@ -534,6 +539,9 @@ def request_crud(cursor,query,lastIdTable,data,crud,responseId):
             return responseBlock
         else:
             return True
+
+
+
     elif crud == 'r':
         return "Not found"
     elif crud == "u":
