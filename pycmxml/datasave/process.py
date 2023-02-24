@@ -443,7 +443,7 @@ def fetch_api( cursor, module, methods , isJson):
 
         created = datetime.now().isoformat(timespec='seconds')
         status= 1
-        insertBlock = 'insert into sistemas.dbo.app_block(app_methods_id,created,modified,[status]) values(?,?,?,?)'
+        insertBlock = 'insert into sistemas.dbo.app_block(app_methods_id,created,modified,status) values(?,?,?,?)'
 
         blockData = (method_id,created,'',status,)
         tableBlock = "select IDENT_CURRENT('sistemas.dbo.app_black') as id"
