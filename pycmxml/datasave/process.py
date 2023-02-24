@@ -515,7 +515,7 @@ def fetch_api( cursor, module, methods , isJson):
 
 def request_crud(cursor,query,table,data,crud):
 
-    if(crud == 'c'):
+    if crud == 'c':
         cursor.execute(query,(data,))
         cursor.commit()
 
@@ -528,11 +528,11 @@ def request_crud(cursor,query,table,data,crud):
             return None #No data then set the firts block
         else:
             return cursor.fetchone().id
-    elif(crud == 'r'):
+    elif crud == 'r':
         return "Not found"
-    elif(crud == "u"):
+    elif crud == "u":
         return "I'm a teapot"
-    elif(crud == "d"):
+    elif crud == "d" :
         return "I'm a teapot"
     else:
         return "Something's wrong with the internet"
