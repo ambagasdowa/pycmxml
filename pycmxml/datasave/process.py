@@ -494,7 +494,7 @@ def fetch_api( cursor, module, methods , isJson):
 
                     for eachBlock in position.iter():
                         if eachBlock.tag != 'return':
-                            dataset[eachBlock.tag] = [app_id,eachBlock.text,module_id,method_id]
+                            dataset[eachBlock.tag] = [eachBlock.tag,eachBlock.text]
                     print(f"Saving records with loop -> {loop} ...")
                     #firts save a block with method descriptor 
                     blockId = request_crud(cursor,insertBlock,tableBlock,blockData,'c')
