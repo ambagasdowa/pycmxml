@@ -528,7 +528,8 @@ def request_crud(cursor,query,lastIdTable,data,crud):
         #     return None #No data then set the firts block
         # else:
         #     return cursor.fetchone().id
-        return f"insert{crud} into ...query"
+        print(data)
+        return f"insert{crud} : {lastIdTable} {query}..."
     elif crud == 'r':
         return "Not found"
     elif crud == "u":
