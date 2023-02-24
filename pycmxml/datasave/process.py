@@ -516,8 +516,8 @@ def fetch_api( cursor, module, methods , isJson):
 def request_crud(cursor,query,lastIdTable,data,crud):
 
     if crud == 'c':
-        cursor.execute(query,(data,))
-        cursor.commit()
+        # cursor.execute(query,(data,))
+        # cursor.commit()
 
         # cursor.execute(tableBlock)
         # responseBlock = cursor.rowcount
