@@ -144,7 +144,7 @@ def main():
             if debug:
                 print(f"[red]Execute[red]: [cyan]Michelin app[cyan]")
             try:
-                prf.fetch_api(cursor, args.application, args.modules, False)
+                prf.fetch_api(cursor, args , False)
             except:
                 pass
     else:
