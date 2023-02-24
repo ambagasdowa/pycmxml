@@ -514,6 +514,7 @@ def fetch_api( cursor, module, methods , isJson):
 
 
 def request_crud(cursor,query,table,data,crud):
+
     if(crud == 'c'):
         cursor.execute(query,(data,))
         cursor.commit()
@@ -528,7 +529,7 @@ def request_crud(cursor,query,table,data,crud):
         else:
             return cursor.fetchone().id
     elif(crud == 'r'):
-         return "Not found"
+        return "Not found"
     elif(crud == "u"):
         return "I'm a teapot"
     elif(crud == "d"):
