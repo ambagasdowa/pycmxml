@@ -519,6 +519,9 @@ def request_crud(cursor,query,lastIdTable,data,crud):
         print(type(data))
         print(data)
         print(query)
+
+        print(cursor.description)
+
         cursor.execute(query,data)
         cursor.commit()
 
