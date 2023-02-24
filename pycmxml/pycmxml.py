@@ -84,8 +84,8 @@ def get_args():
     parser.add_argument('-v', '--debug', action='store_true',
                         help='Set the debug output to true'
                         )
-    parser.add_argument('--version', action='version',
-                        version='%(prog)s {version}'.format(version=__version__))
+    # parser.add_argument('--version', action='version',
+    #                     version='%(prog)s {version}'.format(version=__version__))
     # parser.print_help()
     # parser.parse_args(['-h'])
     return parser.parse_args()
