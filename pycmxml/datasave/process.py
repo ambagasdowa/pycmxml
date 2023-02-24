@@ -513,21 +513,22 @@ def fetch_api( cursor, module, methods , isJson):
 
 
 
-def request_crud(cursor,query,table,data,crud):
+def request_crud(cursor,query,lastIdTable,data,crud):
 
     if crud == 'c':
-        cursor.execute(query,(data,))
-        cursor.commit()
+        # cursor.execute(query,(data,))
+        # cursor.commit()
 
-        cursor.execute(tableBlock)
-        responseBlock = cursor.rowcount
-        print(cursor.description)
-        cursor.commit()
-        if responseBlock == -1:
-            print(f"getLastBlockId is none")
-            return None #No data then set the firts block
-        else:
-            return cursor.fetchone().id
+        # cursor.execute(tableBlock)
+        # responseBlock = cursor.rowcount
+        # print(cursor.description)
+        # cursor.commit()
+        # if responseBlock == -1:
+        #     print(f"getLastBlockId is none")
+        #     return None #No data then set the firts block
+        # else:
+        #     return cursor.fetchone().id
+        return f"insert{crud} into ...query"
     elif crud == 'r':
         return "Not found"
     elif crud == "u":
