@@ -39,7 +39,6 @@ import logging
 import argparse
 
 
-
 #from pkg_resources import get_distribution, DistributionNotFound
 #import os.path
 
@@ -77,7 +76,7 @@ def get_args():
     parser.add_argument('-c', '--config', action='store_true',
                         help='Takes dates from configuration values'
                         )
-    parser.add_argument('-cc', '--createConfig',action='store_true',
+    parser.add_argument('-cc', '--createConfig', action='store_true',
                         help='Create configuration files '
                         )
     parser.add_argument('-x', '--application',
@@ -109,16 +108,16 @@ def main():
     config = conf.configuration
     # === === === === === === === ===  Library Section  === === === === === === === === #
     debug = args.debug
-    if debug :
+    if debug:
         print("[green]" + lib.camelize('initializing')+"...[green]")
         print(args)
 
     if (args.application in x):
-        if debug :
+        if debug:
             print(f"[cyan]Set app to cursor: [cyan]")
         # then execute prf or
         if (args.application == 'cmex'):
-            if debug :
+            if debug:
                 for i in track(range(2), description="Connecting to database ..."):
                     time.sleep(1)  # Simulate work being done
             cursor = db.connect(config)
@@ -154,7 +153,7 @@ def main():
             if debug:
                 print(f"[red]Execute[red]: [cyan]Michelin app[cyan]")
             try:
-                prf.fetch_api(cursor, args , False)
+                prf.fetch_api(cursor, args, False)
             except:
                 pass
     else:
