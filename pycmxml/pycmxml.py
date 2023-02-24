@@ -39,6 +39,7 @@ import logging
 import argparse
 
 
+
 #from pkg_resources import get_distribution, DistributionNotFound
 #import os.path
 
@@ -46,6 +47,7 @@ import argparse
 # Inner libs
 # libs inherit for cmex
 import pycmxml.config.config as conf
+
 import pycmxml.utils.utils as lib
 import pycmxml.connection.db as db
 import pycmxml.datasave.save as dts
@@ -75,6 +77,9 @@ def get_args():
     parser.add_argument('-c', '--config', action='store_true',
                         help='Takes dates from configuration values'
                         )
+    parser.add_argument('-cc', '--createConfig',
+                        help='Create configuration files '
+                        )
     parser.add_argument('-x', '--application',
                         help='Set the application to execute [cmex, michelin ]'
                         )
@@ -96,6 +101,10 @@ def main():
 
     args = get_args()
     # === === === === === === === ===  Config Section  === === === === === === === ===
+    if (args.createConfig):
+        conf.create_config()
+        exit
+
     config = conf.configuration
     # === === === === === === === ===  Library Section  === === === === === === === === #
     debug = args.debug
