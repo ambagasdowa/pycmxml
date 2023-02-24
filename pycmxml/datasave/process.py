@@ -522,17 +522,17 @@ def request_crud(cursor,query,lastIdTable,data,crud):
         cursor.commit()
         print("Trying to fetch the last id")
         cursor.execute(tableBlock)
-        responseBlock = cursor.fetchone().id
+        responseBlock = cursor.fetchone()[0]
         print(responseBlock)
         cursor.commit()
-        if responseBlock == -1:
-            print(f"getLastBlockId is none")
-            return None #No data then set the firts block
-        else:
-            # idBlock = cursor.fetchone().id
-            print(f"responseBlock : {responseBlock}")
-            return responseBlock
-        # return f"insert{crud} : {lastIdTable} {query}..."
+        # if responseBlock == -1:
+        #     print(f"getLastBlockId is none")
+        #     return None #No data then set the firts block
+        # else:
+        #     # idBlock = cursor.fetchone().id
+        #     print(f"responseBlock : {responseBlock}")
+        #     return responseBlock
+        return responseBlock
     elif crud == 'r':
         return "Not found"
     elif crud == "u":
