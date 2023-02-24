@@ -500,7 +500,7 @@ def fetch_api( cursor, module, methods , isJson):
                     blockId = request_crud(cursor,insertBlock,tableBlock,blockData,'c',True)
                     print(blockId)
                     for tpl in dataset.items():
-                        print(tpl)
+                        print(blockId,tpl,created,status,)
 
                     print(dataset)
                     savedata[loop] = dataset
