@@ -15,13 +15,17 @@ config_name = '/config.ini'
 sample = """
 [DEFAULT]
     app = pycmxml
-    author = Ambagasdowa
+    author = Jesus Baizabal
+    mail = baizabal.jesus@gmail.com
+    url = baizabal.xyz
+    github = https://github.com/ambagasdowa 
 [db_connection]
-    server: 10.14.17.118
+    #Ip for the server 
+    server: 127.0.0.1
     driver: ODBC Driver 17 for SQL Server
-    database: sistemas
+    database: db
     user: sa
-    password: effeta
+    password: sa
 [download_config]
     token: 5365d430-32dc-4f0a-8725-905aeb373c1b
     http_path: transportescp.xsa.com.mx:9050/?/descargasCfdi
@@ -54,6 +58,8 @@ sample = """
     # headers:{content-type: 'application/soap+xml'}
     headers: {content-type: 'text/xml'}
     xtension : xml
+    # Add methods for request to WS
+    # and need to add the xml-template for the body of request
     methods : obterPacotePosicoes,obterVeiculos
  """
 
@@ -95,28 +101,3 @@ def read_config():
     return config
 
 # === === === === === === === ===  Config Section  === === === === === === === === #
-
-
-# configuration = {
-#     "download_config": {
-#         "token": "5365d430-32dc-4f0a-8725-905aeb373c1b",
-#         "http_path": "transportescp.xsa.com.mx:9050/?/descargasCfdi",
-#         "download_path": "/tmp/",
-#         "dir_path": "gst_xml/",
-#         "filename": "cfdi_?.zip",
-#     },
-#     "service_params": {  # Partialy implemented ** Obligatorios e implementados
-#         "representacion": "XML",  # ** XML,PDF,ACUSE
-#         "pageSize": "100",  # ** [0-100] default 50
-#         # same as params, default is ? that means:yesterday
-#         "fecha": '2022-12-06:2022-12-12',
-#         #        "fecha": '2022-12-06',
-#         "fechaInicial": '?',  # yyyy-mm-dd
-#         "fechaFinal": '?',  # yyyy-mm-dd
-#         "serie": '',
-#         "folioEspecifico": '',  # int
-#         "folioInicial": '',  # int
-#         "folioFinal": '',  # int
-#         "uuid": '',  # 2d340db1-9c08-4c97-9ca8-676dc648094e
-#     },
-# }
