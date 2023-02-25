@@ -92,9 +92,9 @@ def parse(args,cursor, fecha):
     pageSize = config['service_params']['pageSize']
     representacion = config['service_params']['representacion']
     if debug:
-        hb = "--print=hb"
+        hb = "--print=hbm"
     else:
-        hb=""
+        hb="--print=hm"
     download_files = subprocess.run([ "https" , hb, "--download" , http_path , 'representacion=='+representacion, 'pageSize=='+pageSize,"fecha=="+fecha, "--output" , pack+filename ]) 
 
     try:
