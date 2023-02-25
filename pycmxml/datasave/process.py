@@ -398,6 +398,9 @@ def fetch_api( cursor, args , isJson=False):
     headers=config[module]['headers']
     ext = config[module]["xtension"]
     if debug:
+        print(type(url))
+        print(type(headers))
+        print(type(ext))
         print(f"url:{url} \nheaders:{headers} \next:{ext}")
 
     env = Environment(
