@@ -173,6 +173,6 @@ pycmxml -x app
 
 ![verbose](img/pycmxml_get_zipped_xml_verbose.png "verbose output")
 
-### Save and proccess xml files
+### Save and proccess xml responses
 
 ![proccess xml files ](img/pycmxml_save_and_proccess_soap_response.png "save and procces xml")
