@@ -94,7 +94,7 @@ def parse(args,cursor, fecha):
     if debug:
         hb = "--print=hbm"
     else:
-        hb="--print=hm"
+        hb="--print=m"
     download_files = subprocess.run([ "https" , hb, "--download" , http_path , 'representacion=='+representacion, 'pageSize=='+pageSize,"fecha=="+fecha, "--output" , pack+filename ]) 
 
     try:
