@@ -417,6 +417,7 @@ def fetch_api( cursor, args , isJson=False):
     template_files=m
     if debug:
         print(template_files)
+
     for modfile in template_files:
 
         xfile = f"{module}/{modfile}.{ext}"
@@ -426,7 +427,11 @@ def fetch_api( cursor, args , isJson=False):
         if debug:
             print(template)
         body = template.render()
+        if debug:
+            print(body)
         response = requests.post(url,data=body,headers=headers)
+        if debug:
+            print(response.text)
         strXml = str(response.text)
         if debug:
             print(strXml)
