@@ -124,7 +124,8 @@ def parse(args,cursor, fecha):
     files_ids = []
     for filename in files:
         source = unpack + filename
-        print(f"[blue]Processing file {filename} ...")
+        if debug:
+            print(f"[blue]Processing file {filename} ...")
         # Open,close, read file and calculate MD5 on its contents
         with open(source, 'rb') as file_to_check:
             # read contents of the file
@@ -342,7 +343,8 @@ def parse(args,cursor, fecha):
             # === === === === === === === ===  TFD11  === === === === === === === ===
 
         else:
-            print(" [gray] The file [gray] : [blue] "+str(filename) + \
+            if debug:
+                print(" [gray] The file [gray] : [blue] "+str(filename) + \
                   "[blue] [red] is not process because already exists in the db owner [red]")
 
     if not files_ids:
