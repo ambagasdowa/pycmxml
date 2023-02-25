@@ -51,16 +51,13 @@ import pycmxml.datasave.save as dts
 
 def parse(cursor, config, fecha):
     # === === === === === === === ===  Main Section  === === === === === === === === #
+    config = prf.read_config()
+    # I'm the important line
+    cursor.fast_executemany = True
 
+    print("[violet]"+"Downloading files ..."+"[violet]")
 
-config = prf.read_config()
-
- # I'm the important line
- cursor.fast_executemany = True
-
-  print("[violet]"+"Downloading files ..."+"[violet]")
-
-   for i in track(range(1), description="Cleaning storing dir ..."):
+    for i in track(range(1), description="Cleaning storing dir ..."):
         time.sleep(1)  # Simulate work being done
     tmp_path = config['download_config']['download_path'] + \
     config['download_config']['dir_path']
