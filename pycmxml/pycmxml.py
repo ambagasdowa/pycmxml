@@ -103,7 +103,11 @@ def main():
     # === === === === === === === ===  Config Section  === === === === === === === ===
     if (args.createConfig):
         conf.create_config(args)
-        conf.read_config()
+        rconfig = conf.read_config()
+
+        print(rconfig['db_connection'])
+
+
         if debug:
             print("[green]exit?")
         exit()
