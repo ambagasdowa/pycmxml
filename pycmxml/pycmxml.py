@@ -127,7 +127,7 @@ def main():
             if debug:
                 for i in track(range(2), description="Connecting to database ..."):
                     time.sleep(1)  # Simulate work being done
-            cursor = db.connect(config)
+            cursor = db.connect()
 
             if(args.config == False):
                 if debug:
@@ -156,7 +156,7 @@ def main():
             if debug:
                 for i in track(range(2), description="Connecting to database ..."):
                     time.sleep(1)  # Simulate work being done
-            cursor = db.connect(config)
+            cursor = db.connect()
             if debug:
                 print(f"[red]Execute[red]: [cyan]Michelin app[cyan]")
             try:
