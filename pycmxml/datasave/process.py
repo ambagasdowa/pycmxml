@@ -380,7 +380,7 @@ def fetch_api( cursor, args , isJson=False):
 
     if debug:
         print(f"[red]JSON:[red][cyan] Printing ...[cyan]")
-        print(f"Mdule from : [blue]{module}[blue]")
+        print(f"Module from : [blue]{module}[blue]")
     # print(conf)
     # search for id in db for module
     requests_module = "select id from sistemas.dbo.app_main where application =?"
@@ -397,7 +397,8 @@ def fetch_api( cursor, args , isJson=False):
     url=config[module]['url']
     headers=config[module]['headers']
     ext = config[module]["xtension"]
-
+    if debug:
+        print(f"url:{url} \n headers:{headers} \n ext:{ext}")
     env = Environment(
                         loader=PackageLoader('pycmxml', 'templates'),
                         autoescape=select_autoescape(
