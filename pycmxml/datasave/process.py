@@ -398,7 +398,8 @@ def fetch_api( cursor, args , isJson=False):
     headers=config[module]['headers']
     ext = config[module]["xtension"]
     if debug:
-        print(f"url:{url} \n headers:{headers} \n ext:{ext}")
+        print(f"url:{url} \nheaders:{headers} \next:{ext}")
+
     env = Environment(
                         loader=PackageLoader('pycmxml', 'templates'),
                         autoescape=select_autoescape(
@@ -414,7 +415,8 @@ def fetch_api( cursor, args , isJson=False):
     for data in spl:
         m.append(data)
     template_files=m
-
+    if debug:
+        print(template_files)
     for modfile in template_files:
 
         xfile = f"{module}/{modfile}.{ext}"
