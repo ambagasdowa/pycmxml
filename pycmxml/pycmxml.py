@@ -105,6 +105,8 @@ def main():
         conf.create_config(args)
         rconfig = conf.read_config()
 
+        print(rconfig['michelin']['methods'])
+
         for key,value in rconfig['michelin'].items():
             print(key,value)
 
