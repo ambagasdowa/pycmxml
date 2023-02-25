@@ -1,13 +1,5 @@
 # change to more standar configuration file like yaml or ini
-# sys.path.append('/foo/bar/my_module')
-# import config
 # === === === === ===
-# appname = "pycmxml"
-# appauthor = "Ambagasdowa"
-# pycmxml_conf_dir = user_config_dir(appname)
-# print(pycmxml_conf_dir)
-# sys.path.append(f"{pycmxml_conf_dir}")
-#import config as conf
 import os
 from platformdirs import *
 import configparser
@@ -105,26 +97,26 @@ def read_config():
 # === === === === === === === ===  Config Section  === === === === === === === === #
 
 
-configuration = {
-    "download_config": {
-        "token": "5365d430-32dc-4f0a-8725-905aeb373c1b",
-        "http_path": "transportescp.xsa.com.mx:9050/?/descargasCfdi",
-        "download_path": "/tmp/",
-        "dir_path": "gst_xml/",
-        "filename": "cfdi_?.zip",
-    },
-    "service_params": {  # Partialy implemented ** Obligatorios e implementados
-        "representacion": "XML",  # ** XML,PDF,ACUSE
-        "pageSize": "100",  # ** [0-100] default 50
-        # same as params, default is ? that means:yesterday
-        "fecha": '2022-12-06:2022-12-12',
-        #        "fecha": '2022-12-06',
-        "fechaInicial": '?',  # yyyy-mm-dd
-        "fechaFinal": '?',  # yyyy-mm-dd
-        "serie": '',
-        "folioEspecifico": '',  # int
-        "folioInicial": '',  # int
-        "folioFinal": '',  # int
-        "uuid": '',  # 2d340db1-9c08-4c97-9ca8-676dc648094e
-    },
-}
+# configuration = {
+#     "download_config": {
+#         "token": "5365d430-32dc-4f0a-8725-905aeb373c1b",
+#         "http_path": "transportescp.xsa.com.mx:9050/?/descargasCfdi",
+#         "download_path": "/tmp/",
+#         "dir_path": "gst_xml/",
+#         "filename": "cfdi_?.zip",
+#     },
+#     "service_params": {  # Partialy implemented ** Obligatorios e implementados
+#         "representacion": "XML",  # ** XML,PDF,ACUSE
+#         "pageSize": "100",  # ** [0-100] default 50
+#         # same as params, default is ? that means:yesterday
+#         "fecha": '2022-12-06:2022-12-12',
+#         #        "fecha": '2022-12-06',
+#         "fechaInicial": '?',  # yyyy-mm-dd
+#         "fechaFinal": '?',  # yyyy-mm-dd
+#         "serie": '',
+#         "folioEspecifico": '',  # int
+#         "folioInicial": '',  # int
+#         "folioFinal": '',  # int
+#         "uuid": '',  # 2d340db1-9c08-4c97-9ca8-676dc648094e
+#     },
+# }
