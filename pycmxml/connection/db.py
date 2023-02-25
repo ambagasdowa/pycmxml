@@ -8,7 +8,7 @@ from rich.progress import Progress
 import pycmxml.config.config as conf
 
 
-def connect(config):
+def connect():
 
     config = conf.read_config()
 
