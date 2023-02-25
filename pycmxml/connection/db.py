@@ -22,7 +22,7 @@ def connect():
     except pyodbc.Error as e:
         # print("Error %d: %s" % (e.args[0], e.args[1]))
         print("Error {}: {}".format(e.args[0], e.args[1]))
-        sys.exit(1)
+        # sys.exit(1)
 
     print("[blue]DB Connected...[blue]")
 

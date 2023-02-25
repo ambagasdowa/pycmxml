@@ -40,6 +40,12 @@ for a specific branch or tag add with @
  python3 -m pip install git+https://github.com/ambagasdowa/pycmxml.git@v3.1.4
 ```
 
+or upgrade
+
+```bash
+python3.9 -m pip uninstall -y pycmxml && python3.9 -m pip install --upgrade git+https://github.com/ambagasdowa/pycmxml.git@SoapWs
+```
+
 # Config
 
 put a config.ini file under config user dir
