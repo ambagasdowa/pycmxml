@@ -395,7 +395,7 @@ def fetch_api( cursor, args , isJson=False):
         print(config[module])
 # XML method
     url=config[module]['url']
-    headers=config.[module]['headers']
+    headers=config[module]['headers']
     ext = config[module]["xtension"]
 
     env = Environment(
