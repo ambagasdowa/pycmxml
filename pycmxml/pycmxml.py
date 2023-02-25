@@ -103,11 +103,6 @@ def main():
     # === === === === === === === ===  Config Section  === === === === === === === ===
     if (args.createConfig):
         conf.create_config(args)
-        # print(type(rconfig['michelin']['methods']))
-        # print(rconfig['michelin']['methods'])
-
-        # for key,value in rconfig['michelin'].items():
-        #     print(key,value)
         if debug:
             print("[green]config.py file is created ")
         exit()
@@ -136,10 +131,10 @@ def main():
             else:
                 if debug:
                     print("[red]Config[red] : [cyan]on[cyan]")
-                if (config['service_params']['fecha'] == '?'):
+                if (rconfig['service_params']['fecha'] == '?'):
                     fecha = (str(date.today() - timedelta(days=1)))
                 else:
-                    fecha = str(config['service_params']['fecha'])
+                    fecha = str(rconfig['service_params']['fecha'])
 
             expanded_dates = lib.date_expand(fecha)
 

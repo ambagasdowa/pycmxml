@@ -2,7 +2,7 @@
 
 #=== === === === === === === ===  NOTES Section  === === === === === === === === #
 
-# TODO buiild as a package 
+# TODO buiild as a package
 
 #=== === === === === === === ===  Import Section  === === === === === === === === #
 import pyodbc
@@ -15,12 +15,12 @@ import subprocess
 # under the alias of ET
 import xml.etree.ElementTree as ET
 
-#UIX
+# UIX
 from rich import print
 from rich.progress import track
 from rich.progress import Progress
 
-from datetime import datetime,date,tzinfo, timedelta
+from datetime import datetime, date, tzinfo, timedelta
 import time
 
 from pycfdi_transform import CFDI40SAXHandler
@@ -28,9 +28,9 @@ from pycfdi_transform.formatters.cfdi40.efisco_corp_cfdi40_formatter import Efis
 from pycfdi_transform.formatters.cfdi40.cda_cfdi40_formatter import CDACFDI40Formatter
 
 from re import split, sub
-#Zip
+# Zip
 import zipfile
-#md5
+# md5
 import hashlib
 
 
@@ -40,43 +40,47 @@ import json
 from jinja2 import Environment, PackageLoader, select_autoescape
 
 
-## Inner libs
-
+# Inner libs
 
 
 import pycmxml.config.config as conf
 import pycmxml.utils.utils as lib
-#import connection.db as db
+# import connection.db as db
 import pycmxml.datasave.save as dts
 
 
-def parse(cursor,config,fecha):
-# === === === === === === === ===  Main Section  === === === === === === === === #
+def parse(cursor, config, fecha):
+    # === === === === === === === ===  Main Section  === === === === === === === === #
 
-    # I'm the important line
-    cursor.fast_executemany = True
 
-    print ("[violet]"+"Downloading files ..."+"[violet]")
+config = prf.read_config()
 
-    for i in track(range(1), description="Cleaning storing dir ..."):    time.sleep(1)  # Simulate work being done
-    tmp_path = config['download_config']['download_path'] + config['download_config']['dir_path']
+ # I'm the important line
+ cursor.fast_executemany = True
 
-    clean_dir_files = subprocess.run(["rm", "-r",tmp_path], stdout=subprocess.DEVNULL)
+  print("[violet]"+"Downloading files ..."+"[violet]")
 
-    make_dir_files = subprocess.run(["mkdir", "-p",tmp_path+"pack",tmp_path+"unpack"], stdout=subprocess.DEVNULL)
+   for i in track(range(1), description="Cleaning storing dir ..."):
+        time.sleep(1)  # Simulate work being done
+    tmp_path = config['download_config']['download_path'] + \
+    config['download_config']['dir_path']
 
-    cmex_token =config['download_config']['token']
+    clean_dir_files = subprocess.run(
+        ["rm", "-r", tmp_path], stdout=subprocess.DEVNULL)
 
-    http_path = config['download_config']['http_path'].replace('?',cmex_token)
+    make_dir_files = subprocess.run(
+      ["mkdir", "-p", tmp_path+"pack", tmp_path+"unpack"], stdout=subprocess.DEVNULL)
+
+    cmex_token = config['download_config']['token']
+
+    http_path = config['download_config']['http_path'].replace('?', cmex_token)
     download_path = config['download_config']['download_path']
-    dir_path =  config['download_config']['dir_path']
+    dir_path = config['download_config']['dir_path']
     filename = config['download_config']['filename'].replace('?', str(int(time.time()))
-    )
+                                                             )
 
     pack = download_path+dir_path+"pack/"
     unpack = download_path+dir_path+"unpack/"
-
-
 
     for i in track(range(1), description="Downloading xml files ..."):
         time.sleep(1)  # Simulate work being done
@@ -84,19 +88,19 @@ def parse(cursor,config,fecha):
 
 #    print ("[blue] Downloading files for date [blue]: [red]"+fecha+"[red]")
 
-
     pageSize = config['service_params']['pageSize']
     representacion = config['service_params']['representacion']
 
-    download_files = subprocess.run([ "https" , "--print=hb","--download" , http_path ,'representacion=='+representacion,'pageSize=='+pageSize,"fecha=="+fecha, "--output" , pack+filename ]) 
+    download_files = subprocess.run([ "https" , "--print=hb", "--download" , http_path , 'representacion=='+representacion, 'pageSize=='+pageSize,"fecha=="+fecha, "--output" , pack+filename ]) 
 
     try:
         with zipfile.ZipFile(pack+filename, 'r') as zip_ref:
             zip_ref.extractall(unpack)
     except zipfile.BadZipfile:
-        print("[red] zip file : "+pack+filename+" from provider with errors , try again ...[red]")
+        print("[red] zip file : "+pack+filename + \
+              " from provider with errors , try again ...[red]")
 
-    # One with have the files 
+    # One with have the files
     def get_files(path):
         for file in os.listdir(path):
             if os.path.isfile(os.path.join(path, file)):
@@ -106,21 +110,17 @@ def parse(cursor,config,fecha):
     for file in get_files(unpack):
         files.append(file)
 
-
-
     for i in track(range(1), description="unzipping and process files ..."):
         time.sleep(1)  # Simulate work being done
-    print (files)
+    print(files)
 
-
-
-    #build the function from hir
+    # build the function from hir
     # initialize files_id for post treatment
     files_ids = []
     for filename in files:
         source = unpack + filename
 
-    # Open,close, read file and calculate MD5 on its contents 
+    # Open,close, read file and calculate MD5 on its contents
         with open(source, 'rb') as file_to_check:
             # read contents of the file
             data = file_to_check.read()
@@ -128,15 +128,15 @@ def parse(cursor,config,fecha):
             md5_returned = hashlib.md5(data).hexdigest()
 
         name, ext = os.path.splitext(filename)
-        #uuid,doctype:FAC,idfac,Date,SomeCtrlnum
+        # uuid,doctype:FAC,idfac,Date,SomeCtrlnum
         split_data = str(name).split('_')
 
-        save_file = (split_data[1]+'_'+split_data[2],split_data[0],md5_returned,datetime.now().isoformat(timespec='seconds'),'',1,
-    )
+        save_file = (split_data[1]+'_'+split_data[2], split_data[0], md5_returned, datetime.now().isoformat(timespec='seconds'),'',1,
+                     )
 
         qry_md5 = "select [_md5sum] from sistemas.dbo.cmex_api_controls_files where [_md5sum] = ?"
         md5 = False
-        cursor.execute(qry_md5,(md5_returned,))
+        cursor.execute(qry_md5, (md5_returned,))
         for row in cursor.fetchall():
             if(row[0] == md5_returned):
                 md5 = True
@@ -160,9 +160,10 @@ def parse(cursor,config,fecha):
             cmex_api_controls_files_id = cursor.fetchone()[0]
             cursor.commit()
             files_ids.append(str(cmex_api_controls_files_id))
-            print("[red]cmex_api_controls_files_id : "+str(cmex_api_controls_files_id)+"[red]")
+            print("[red]cmex_api_controls_files_id : " + \
+                  str(cmex_api_controls_files_id)+"[red]")
 
-    #params = cmex_api_controls_files_id , source
+    # params = cmex_api_controls_files_id , source
 
             # NOTE after set the source start with the parsing :
             # First get the general information
@@ -177,7 +178,6 @@ def parse(cursor,config,fecha):
             # https://docs.python.org/es/3.9/library/xml.etree.elementtree.html
             ns = {'cfdi': 'http://www.sat.gob.mx/cfd/4',
                   'cartapore20': 'http://www.sat.gob.mx/CartaPorte20'}
-
 
             transformer = CFDI40SAXHandler()  # Cfdi 4.0
             # transformer = CFDI40SAXHandler().use_concepts_cfdi40()  # Cfdi 4.0
@@ -231,25 +231,18 @@ def parse(cursor,config,fecha):
                 "select IDENT_CURRENT('sistemas.dbo.cmex_api_cfdi_comprobante') as id")
             comprobante_last_id = cursor.fetchone()[0]
             cursor.commit()
-            #print("[red]"+str(comprobante_last_id)+"[red]")
-
+            # print("[red]"+str(comprobante_last_id)+"[red]")
 
             # === === === === === === === ===  Tfd11 === === === === === === === ===
             print("[blue] Start TFD11 DATA  XTRACTION [blue]")
             print(cfdi_data['tfd11'])
 
             tfd_elements = [
-             'version'
-           , 'no_certificado_sat'
-           , 'uuid'
-           , 'fecha_timbrado'
-           , 'rfc_prov_cert'
-           , 'sello_cfd'
-           , 'sello_sat'
+                'version', 'no_certificado_sat'                , 'uuid'                , 'fecha_timbrado'                , 'rfc_prov_cert'                , 'sello_cfd'                , 'sello_sat'
             ]
             save_tfd = (cmex_api_controls_files_id,)
-            for indx,tfdata in cfdi_data['tfd11'][0].items():
-                if indx in tfd_elements :
+            for indx, tfdata in cfdi_data['tfd11'][0].items():
+                if indx in tfd_elements:
                     save_tfd = save_tfd + (tfdata,)
 
             for this_tuple in add_save:
@@ -274,11 +267,10 @@ def parse(cursor,config,fecha):
             for i in track(range(2), description="Saving to TimbreFiscal data to database..."):
                 time.sleep(1)  # Simulate work being done
 
-            cursor.execute(tfd_insert,save_tfd)
+            cursor.execute(tfd_insert, save_tfd)
             cursor.commit()
 
             # === === === === === === === ===  Tfd11 === === === === === === === ===
-
 
             element_qry = "insert into sistemas.dbo.cmex_api_cfdi_data( \
                             cmex_api_controls_files_id \
@@ -292,59 +284,58 @@ def parse(cursor,config,fecha):
 
             # === === === === === === === ===  Emisor === === === === === === === ===
 
-            dts.indb(True,cfdi_data['cfdi40']['emisor'],cursor,tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=1,offset=0,step=0,namespace = 'emisor')
+            dts.indb(True, cfdi_data['cfdi40']['emisor'], cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=1,offset=0,step=0,namespace = 'emisor')
 
             # === === === === === === === ===  Receptor === === === === === === === ===
 
-            dts.indb(True,cfdi_data['cfdi40']['receptor'],cursor,tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=2,offset=0,step=0,namespace = 'receptor')
+            dts.indb(True, cfdi_data['cfdi40']['receptor'], cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=2,offset=0,step=0,namespace = 'receptor')
             # === === === === === === === ===  Receptor === === === === === === === ===
 
             impuestos_element = "select id,cmex_api_tagname from sistemas.dbo.cmex_api_tags where cmex_api_section_id = ? and id in (11,12)"
-            dts.indb(True,cfdi_data['cfdi40']['impuestos'],cursor,tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element=impuestos_element,init=4,offset=0,step=0,namespace = 'impuestos')
-
+            dts.indb(True, cfdi_data['cfdi40']['impuestos'], cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element=impuestos_element,init=4,offset=0,step=0,namespace = 'impuestos')
 
             # === === === === === === === ===  cartaporte === === === === === === === ===
 
-            dts.indb(True,cfdi_data['cfdi40']['impuestos']['retenciones'][0],cursor,tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=5,offset=0,step=0,namespace = 'retenciones')
+            dts.indb(True, cfdi_data['cfdi40']['impuestos']['retenciones'][0], cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=5,offset=0,step=0,namespace = 'retenciones')
 
             # === === === === === === === ===  Traslados === === === === === === === ===
             # Retentions && tralations
 
-            dts.indb(True,cfdi_data['cfdi40']['impuestos']['traslados'][0],cursor,tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=6,offset=0,step=0,namespace = 'traslados')
+            dts.indb(True, cfdi_data['cfdi40']['impuestos']['traslados'][0], cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=6,offset=0,step=0,namespace = 'traslados')
 
             # === === === === === === === ===  cartaporte === === === === === === === ===
-            dts.indb(False,cfdi_data,cursor,tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=7,offset=0,step=0,namespace = 'carta_porte')
+            dts.indb(False, cfdi_data, cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=7,offset=0,step=0,namespace = 'carta_porte')
             # === === === === === === === ===  ubicacion_origen === === === === === === === ===
-            dts.indb(False,cfdi_data,cursor,tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=8,offset=0,step=2,namespace = 'ubicacion')
+            dts.indb(False, cfdi_data, cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=8,offset=0,step=2,namespace = 'ubicacion')
             # === === === === === === === ===  Domicilio  === === === === === === === ===
-            dts.indb(False,cfdi_data,cursor,tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=9,offset=0,step=2,namespace = 'domicilio')
+            dts.indb(False, cfdi_data, cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=9,offset=0,step=2,namespace = 'domicilio')
             # === === === === === === === ===  Mercancias  === === === === === === === ===
-            dts.indb(False,cfdi_data,cursor,tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=12,offset=0,step=0,namespace = 'mercancias')
+            dts.indb(False, cfdi_data, cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=12,offset=0,step=0,namespace = 'mercancias')
             # === === === === === === === ===  Mercancia  === === === === === === === ===
-            dts.indb(False,cfdi_data,cursor,tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=13,offset=0,step=0,namespace = 'mercancia')
+            dts.indb(False, cfdi_data, cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=13,offset=0,step=0,namespace = 'mercancia')
             # === === === === === === === ===  autotransporte  === === === === === === === ===
-            dts.indb(False,cfdi_data,cursor,tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=14,offset=0,step=0,namespace = 'autotransporte')
+            dts.indb(False, cfdi_data, cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=14,offset=0,step=0,namespace = 'autotransporte')
             # === === === === === === === ===  identificacion  === === === === === === === ===
-            dts.indb(False,cfdi_data,cursor,tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=15,offset=0,step=0,namespace = 'identificacion_vehicular')
-            dts.indb(False,cfdi_data,cursor,tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=16,offset=0,step=0,namespace = 'seguros')
-            dts.indb(False,cfdi_data,cursor,tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=17,offset=0,step=0,namespace = 'remolque')
-            dts.indb(False,cfdi_data,cursor,tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=18,offset=0,step=0,namespace = 'tipos_figura')
+            dts.indb(False, cfdi_data, cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=15,offset=0,step=0,namespace = 'identificacion_vehicular')
+            dts.indb(False, cfdi_data, cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=16,offset=0,step=0,namespace = 'seguros')
+            dts.indb(False, cfdi_data, cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=17,offset=0,step=0,namespace = 'remolque')
+            dts.indb(False, cfdi_data, cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=18,offset=0,step=0,namespace = 'tipos_figura')
             # === === === === === === === ===  TFD11  === === === === === === === ===
 
         else:
-            print(" [gray] The file [gray] : [blue] "+str(filename)+"[blue] [red] is not process because already exists in the db owner [red]")
+            print(" [gray] The file [gray] : [blue] "+str(filename) + \
+                  "[blue] [red] is not process because already exists in the db owner [red]")
 
     if not files_ids:
         print("Nothing to save ...")
     else:
-        ## TODO Run db Procedure for info treatments and pass the id's files  as params 
+        # TODO Run db Procedure for info treatments and pass the id's files  as params
         print(files_ids)
 
 #    cursor.close()
 
 
-
-def fetch_api( cursor, args , isJson=False):
+def fetch_api(cursor, args, isJson=False):
 
     config = conf.read_config()
     module = args.application
@@ -354,22 +345,21 @@ def fetch_api( cursor, args , isJson=False):
     if debug:
         print(f"[blue]fetch the method[blue]")
 # JSON method
-    #url = 'https://api.github.com/some/endpoint'
-    #headers = {'user-agent': 'my-app/0.0.1'}
-    #params = {'key':'value'}
+    # url = 'https://api.github.com/some/endpoint'
+    # headers = {'user-agent': 'my-app/0.0.1'}
+    # params = {'key':'value'}
 
-    #response = requests.get(url, headers=headers,params=params)
-    #print(response.text)
-    #print(response.json())
-    ## Getting dictionary
-    #print(json.loads(response.text))
-    ##Simulate the response
-    #person_string = '{"name": "Bob", "languages": "English", "numbers": [2, 1.6, null]}'
-    ## Getting dictionary
-    #person_dict = json.loads(person_string)
-    ## Pretty Printing JSON string back
-    #print(json.dumps(person_dict, indent = 4, sort_keys=True))
-
+    # response = requests.get(url, headers=headers,params=params)
+    # print(response.text)
+    # print(response.json())
+    # Getting dictionary
+    # print(json.loads(response.text))
+    # Simulate the response
+    # person_string = '{"name": "Bob", "languages": "English", "numbers": [2, 1.6, null]}'
+    # Getting dictionary
+    # person_dict = json.loads(person_string)
+    # Pretty Printing JSON string back
+    # print(json.dumps(person_dict, indent = 4, sort_keys=True))
 
     # cursor(dictionary=True) #row=cursor.execute  json.dumps(row)
     # cursor.execute("select IDENT_CURRENT('sistemas.dbo.app_black') as id")
@@ -388,33 +378,33 @@ def fetch_api( cursor, args , isJson=False):
     request_method = 'select id,app_id from sistemas.dbo.app_api_methods where methods = ?'
     request_block = ''
 
-    cursor.execute(requests_module,(module,))
+    cursor.execute(requests_module, (module,))
     module_id = cursor.fetchone().id
     cursor.commit()
     if debug:
         print(config[module])
 # XML method
-    url=config[module]['url']
-    headers=config[module]['headers']
+    url = config[module]['url']
+    headers = config[module]['headers']
     ext = config[module]["xtension"]
     if debug:
         print(f"url:{url} \nheaders:{headers} \next:{ext}")
 
     env = Environment(
-                        loader=PackageLoader('pycmxml', 'templates'),
-                        autoescape=select_autoescape(
-                                                        enabled_extensions=('html', 'xml','md'),
-                                                        disabled_extensions=('txt'),
-                                                        default_for_string=True,)
-                    )
+        loader=PackageLoader('pycmxml', 'templates'),
+        autoescape=select_autoescape(
+            enabled_extensions=('html', 'xml', 'md'),
+            disabled_extensions=('txt'),
+            default_for_string=True,)
+    )
 
     if methods is None:
-        methods=config[module]['methods']
-    m=[]
+        methods = config[module]['methods']
+    m = []
     spl = str(methods).split(',')
     for data in spl:
         m.append(data)
-    template_files=m
+    template_files = m
     if debug:
         print('TEMPLATE_FILES:')
         print(template_files)
@@ -432,7 +422,7 @@ def fetch_api( cursor, args , isJson=False):
         if debug:
             print('BODY:')
             print(body)
-        response = requests.post(url,body,headers)
+        response = requests.post(url, body, headers)
         if debug:
             print('RESPONSE:')
             print(response)
@@ -441,7 +431,7 @@ def fetch_api( cursor, args , isJson=False):
         # if debug:
         #     print(strXml)
         # ask for method_id for modfile in datatable and set :
-        cursor.execute(request_method,(modfile,))
+        cursor.execute(request_method, (modfile,))
         resMethod = cursor.fetchone()
         cursor.commit()
         # print(resMethod)
@@ -449,10 +439,10 @@ def fetch_api( cursor, args , isJson=False):
         app_id = resMethod.app_id
 
         created = datetime.now().isoformat(timespec='seconds')
-        status= 1
+        status = 1
         insertBlock = 'insert into sistemas.dbo.app_block(app_api_methods_id,created,status) values(?,?,?)'
 
-        blockData = (method_id,created,status,)
+        blockData = (method_id, created, status,)
         tableBlock = "sistemas.dbo.app_block"
 
         insertData = 'insert into sistemas.dbo.app_api_data(app_block_id,tag,value,created,status) values(?,?,?,?,?)'
@@ -462,8 +452,8 @@ def fetch_api( cursor, args , isJson=False):
         try:
             tree = ET.fromstring(strXml)
             ns = {
-                    'S':"http://schemas.xmlsoap.org/soap/envelope/",
-                    'ns0':"http://webservice.web.integracao.sascar.com.br/",
+                'S': "http://schemas.xmlsoap.org/soap/envelope/",
+                'ns0': "http://webservice.web.integracao.sascar.com.br/",
             }
             if tree is None:
                 print('no trees,no woods')
@@ -471,28 +461,29 @@ def fetch_api( cursor, args , isJson=False):
 
                 loop = 0
                 dataset = {}
-                savedata={}
+                savedata = {}
 
                 for position in tree.findall('.//return'):
-                    #TODO Create a new entry in db and retrieve the id
+                    # TODO Create a new entry in db and retrieve the id
 
                     for eachBlock in position.iter():
                         if eachBlock.tag != 'return':
                             dataset[eachBlock.tag] = eachBlock.text
                     if debug:
                         print(f"Saving records with loop -> {loop} ...")
-                    #firts save a block with method descriptor 
-                    blockId = request_crud(cursor,insertBlock,tableBlock,blockData,'c',False,True)
+                    # firts save a block with method descriptor
+                    blockId = request_crud(cursor, insertBlock, tableBlock, blockData,'c',False,True)
                     if debug:
                         print(blockId)
                         print(f"Prepare the data for save ...")
                     saveTbl = []
                     for tpl in dataset.items():
-                        saveTbl.append((blockId,)+tpl+(created,status,))
+                        saveTbl.append((blockId,)+tpl+(created, status,))
                     if debug:
                         print(saveTbl)
-                    saveBlock = request_crud(cursor,insertData,tableData,saveTbl,'c',True,False)
-                    print(f"[blue]Success save datablock ->[/blue] [green]{modfile} :[/green][cyan]{blockId}[/cyan]")
+                    saveBlock = request_crud(cursor, insertData, tableData, saveTbl,'c',True,False)
+                    print(
+                        f"[blue]Success save datablock ->[/blue] [green]{modfile} :[/green][cyan]{blockId}[/cyan]")
                     loop += 1
         except Exception as e:
             raise e
@@ -502,14 +493,14 @@ def fetch_api( cursor, args , isJson=False):
 
 
 
-def request_crud(cursor,query,lastIdTable,data,crud,matrix,responseId=False):
+def request_crud(cursor, query, lastIdTable, data,crud,matrix,responseId=False):
 
     if crud == 'c':
         # Insert the data and return the id
         if matrix == True:
-            cursor.executemany(query,data)
+            cursor.executemany(query, data)
         else:
-            cursor.execute(query,data)
+            cursor.execute(query, data)
         cursor.commit()
 
         if responseId == True:
@@ -525,10 +516,7 @@ def request_crud(cursor,query,lastIdTable,data,crud,matrix,responseId=False):
         return "Not Implemented yet"
     elif crud == "u":
         return "Not Implemented yet"
-    elif crud == "d" :
+    elif crud == "d":
         return "Not Implemented yet"
     else:
         return "Something's wrong with the internet"
-
-
-

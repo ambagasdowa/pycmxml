@@ -37,18 +37,23 @@ sample = """
     dir_path: gst_xml/
     filename: cfdi_?.zip
 [service_params]
-    representacion: XML  # ** XML,PDF,ACUSE
-    pageSize: 100  # ** [0-100] default 50
+    # can be [XML,PDF,ACUSE]
+    representacion: XML
+    #[0-100] defaults 50
+    pageSize: 100
     # same as params default is ? that means:yesterday
     fecha: '2022-12-06:2022-12-12'
     #        fecha: '2022-12-06'
-    fechaInicial: '?'  # yyyy-mm-dd
-    fechaFinal: '?'  # yyyy-mm-dd
+    #fechaInicial => yyy-mm-dd | ? take argument from command line
+    fechaInicial: '?'
+    fechaFinal: '?'
     serie: ''
-    folioEspecifico: ''  # int
-    folioInicial: ''  # int
-    folioFinal: ''  # int
-    uuid: ''  # 2d340db1-9c08-4c97-9ca8-676dc648094e
+    # int
+    folioEspecifico: ''
+    folioInicial: ''
+    folioFinal: ''
+    # 2d340db1-9c08-4c97-9ca8-676dc648094e
+    uuid: ''
 [apps]
     michelin=true
     cmex=true
