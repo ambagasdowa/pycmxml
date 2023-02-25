@@ -91,8 +91,11 @@ def parse(args,cursor, fecha):
 
     pageSize = config['service_params']['pageSize']
     representacion = config['service_params']['representacion']
-
-    download_files = subprocess.run([ "https" , "--print=hb", "--download" , http_path , 'representacion=='+representacion, 'pageSize=='+pageSize,"fecha=="+fecha, "--output" , pack+filename ]) 
+    if debug:
+        hb = "--print=hb"
+    else:
+        hb=""
+    download_files = subprocess.run([ "https" , hb, "--download" , http_path , 'representacion=='+representacion, 'pageSize=='+pageSize,"fecha=="+fecha, "--output" , pack+filename ]) 
 
     try:
         with zipfile.ZipFile(pack+filename, 'r') as zip_ref:
@@ -112,7 +115,7 @@ def parse(args,cursor, fecha):
         files.append(file)
 
     if debug:
-        for i in track(range(1), description="unzipping and process files ..."):
+        for i in track(range(1), description="unzipping and processing files ..."):
             time.sleep(1)  # Simulate work being done
         print(files)
 
@@ -121,8 +124,8 @@ def parse(args,cursor, fecha):
     files_ids = []
     for filename in files:
         source = unpack + filename
-
-    # Open,close, read file and calculate MD5 on its contents
+         print(f"[blue]Processing file {filename} ...")
+        # Open,close, read file and calculate MD5 on its contents
         with open(source, 'rb') as file_to_check:
             # read contents of the file
             data = file_to_check.read()
