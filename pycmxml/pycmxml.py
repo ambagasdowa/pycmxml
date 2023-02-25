@@ -103,19 +103,16 @@ def main():
     # === === === === === === === ===  Config Section  === === === === === === === ===
     if (args.createConfig):
         conf.create_config(args)
-        rconfig = conf.read_config()
+        # print(type(rconfig['michelin']['methods']))
+        # print(rconfig['michelin']['methods'])
 
-        print(type(rconfig['michelin']['methods']))
-        print(rconfig['michelin']['methods'])
-
-        for key,value in rconfig['michelin'].items():
-            print(key,value)
-
-
+        # for key,value in rconfig['michelin'].items():
+        #     print(key,value)
         if debug:
             print("[green]exit?")
         exit()
 
+    rconfig = conf.read_config()
     config = conf.configuration
     # === === === === === === === ===  Library Section  === === === === === === === === #
     if debug:

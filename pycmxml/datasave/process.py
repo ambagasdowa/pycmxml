@@ -50,21 +50,6 @@ import pycmxml.utils.utils as lib
 import pycmxml.datasave.save as dts
 
 
-
-# change to more standar configuration file like yaml or ini
-# sys.path.append('/foo/bar/my_module') 
-# import config
-#=== === === === === 
-# from platformdirs import *
-# appname = "pycmxml"
-# appauthor = "Ambagasdowa"
-# pycmxml_conf_dir = user_config_dir(appname)
-# print(pycmxml_conf_dir)
-# sys.path.append(f"{pycmxml_conf_dir}")
-#import config as conf
-
-
-
 def parse(cursor,config,fecha):
 # === === === === === === === ===  Main Section  === === === === === === === === #
 
@@ -361,6 +346,7 @@ def parse(cursor,config,fecha):
 
 def fetch_api( cursor, args , isJson=False):
 
+    config = conf.read_config()
     module = args.application
     methods = args.modules
     debug = args.debug
@@ -406,11 +392,11 @@ def fetch_api( cursor, args , isJson=False):
     module_id = cursor.fetchone().id
     cursor.commit()
     if debug:
-        print(conf.configuration['app_section'][module])
+        print(config[module])
 # XML method
-    url=conf.configuration['app_section'][module]['url']
-    headers=conf.configuration['app_section'][module]['headers']
-    ext = conf.configuration['app_section'][module]["xtension"]
+    url=config[module]['url']
+    headers=config.[module]['headers']
+    ext = config[module]["xtension"]
 
     env = Environment(
                         loader=PackageLoader('pycmxml', 'templates'),
@@ -421,7 +407,7 @@ def fetch_api( cursor, args , isJson=False):
                     )
 
     if methods is None:
-        template_files=conf.configuration['app_section'][module]['methods']
+        template_files=config[module]['methods']
     else:
         m=[]
         spl = str(methods).split(',')
