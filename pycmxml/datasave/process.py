@@ -419,6 +419,7 @@ def fetch_api( cursor, args , isJson=False):
         m.append(data)
     template_files=m
     if debug:
+        print('TEMPLATE_FILES:')
         print(template_files)
 
     for modfile in template_files:
@@ -434,7 +435,7 @@ def fetch_api( cursor, args , isJson=False):
         if debug:
             print('BODY:')
             print(body)
-        response = requests.post(url,data=body,headers=headers)
+        response = requests.post(url,body,headers)
         if debug:
             print('RESPONSE:')
             print(response)
