@@ -441,8 +441,8 @@ def fetch_api( cursor, args , isJson=False):
             print(response)
 
         strXml = str(response.text)
-        if debug:
-            print(strXml)
+        # if debug:
+        #     print(strXml)
         # ask for method_id for modfile in datatable and set :
         cursor.execute(request_method,(modfile,))
         resMethod = cursor.fetchone()
