@@ -425,13 +425,17 @@ def fetch_api( cursor, args , isJson=False):
             print(f"[red]Request for file: [red][green]{xfile}[green]")
         template = env.get_template(xfile)
         if debug:
+            print('TEMPLATE:')
             print(template)
         body = template.render()
         if debug:
+            print('BODY:')
             print(body)
         response = requests.post(url,data=body,headers=headers)
         if debug:
-            print(response.text)
+            print('RESPONSE:')
+            print(response)
+
         strXml = str(response.text)
         if debug:
             print(strXml)
