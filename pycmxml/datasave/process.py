@@ -407,13 +407,12 @@ def fetch_api( cursor, args , isJson=False):
                     )
 
     if methods is None:
-        template_files=config[module]['methods']
-    else:
-        m=[]
-        spl = str(methods).split(',')
-        for data in spl:
-            m.append(data)
-        template_files=m
+        methods=config[module]['methods']
+    m=[]
+    spl = str(methods).split(',')
+    for data in spl:
+        m.append(data)
+    template_files=m
 
     for modfile in template_files:
 
@@ -426,7 +425,8 @@ def fetch_api( cursor, args , isJson=False):
         body = template.render()
         response = requests.post(url,data=body,headers=headers)
         strXml = str(response.text)
-
+        if debug:
+            print(strXml)
         # ask for method_id for modfile in datatable and set :
         cursor.execute(request_method,(modfile,))
         resMethod = cursor.fetchone()
