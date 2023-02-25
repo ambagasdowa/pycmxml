@@ -153,7 +153,8 @@ pycmxml -x app
 - [x] Build functions for print messages and hide them
 - [ ] Set an option for trigger the last procedure in cmex
 - [ ] Automatize the database installation
-- [ ] Add a rest-api
+- [ ] Add a rest-api {fastapi}
+- [ ] Build a Dashboard for data visualization { web , dash }
 
 # Some Pictures
 
