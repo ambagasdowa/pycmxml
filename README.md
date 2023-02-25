@@ -152,16 +152,27 @@ pycmxml -x app
 
 - [x] Build functions for print messages and hide them
 - [ ] Set an option for trigger the last procedure in cmex
+- [ ] Automatize the database installation
 - [ ] Add a rest-api
 
 # Some Pictures
 
+### Get a Soap Response
+
 ![5](img/pycmxml_get_soap.png "get a soap response")
+
+### Download zipped xml files for proccessing
 
 ![download](img/pycmxml_download_files.png "download zipped xml files")
 
+### Proccessing unziped files
+
 ![7](img/pycmxml_get_zipped_xml.png "procces xml files")
 
+### Verbose output
+
 ![verbose](img/pycmxml_get_zipped_xml_verbose.png "verbose output")
+
+### Save and proccess xml files
 
 ![proccess xml files ](img/pycmxml_save_and_proccess_soap_response.png "save and procces xml")
