@@ -300,42 +300,42 @@ def parse(args,cursor, fecha):
 
             # === === === === === === === ===  Emisor === === === === === === === ===
 
-            dts.indb(True, cfdi_data['cfdi40']['emisor'], cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=1,offset=0,step=0,namespace = 'emisor')
+            dts.indb(args,True, cfdi_data['cfdi40']['emisor'], cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=1,offset=0,step=0,namespace = 'emisor')
 
             # === === === === === === === ===  Receptor === === === === === === === ===
 
-            dts.indb(True, cfdi_data['cfdi40']['receptor'], cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=2,offset=0,step=0,namespace = 'receptor')
+            dts.indb(args,True, cfdi_data['cfdi40']['receptor'], cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=2,offset=0,step=0,namespace = 'receptor')
             # === === === === === === === ===  Receptor === === === === === === === ===
 
             impuestos_element = "select id,cmex_api_tagname from sistemas.dbo.cmex_api_tags where cmex_api_section_id = ? and id in (11,12)"
-            dts.indb(True, cfdi_data['cfdi40']['impuestos'], cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element=impuestos_element,init=4,offset=0,step=0,namespace = 'impuestos')
+            dts.indb(args,True, cfdi_data['cfdi40']['impuestos'], cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element=impuestos_element,init=4,offset=0,step=0,namespace = 'impuestos')
 
             # === === === === === === === ===  cartaporte === === === === === === === ===
 
-            dts.indb(True, cfdi_data['cfdi40']['impuestos']['retenciones'][0], cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=5,offset=0,step=0,namespace = 'retenciones')
+            dts.indb(args,True, cfdi_data['cfdi40']['impuestos']['retenciones'][0], cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=5,offset=0,step=0,namespace = 'retenciones')
 
             # === === === === === === === ===  Traslados === === === === === === === ===
             # Retentions && tralations
 
-            dts.indb(True, cfdi_data['cfdi40']['impuestos']['traslados'][0], cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=6,offset=0,step=0,namespace = 'traslados')
+            dts.indb(args,True, cfdi_data['cfdi40']['impuestos']['traslados'][0], cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=6,offset=0,step=0,namespace = 'traslados')
 
             # === === === === === === === ===  cartaporte === === === === === === === ===
-            dts.indb(False, cfdi_data, cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=7,offset=0,step=0,namespace = 'carta_porte')
+            dts.indb(args,False, cfdi_data, cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=7,offset=0,step=0,namespace = 'carta_porte')
             # === === === === === === === ===  ubicacion_origen === === === === === === === ===
-            dts.indb(False, cfdi_data, cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=8,offset=0,step=2,namespace = 'ubicacion')
+            dts.indb(args,False, cfdi_data, cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=8,offset=0,step=2,namespace = 'ubicacion')
             # === === === === === === === ===  Domicilio  === === === === === === === ===
-            dts.indb(False, cfdi_data, cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=9,offset=0,step=2,namespace = 'domicilio')
+            dts.indb(args,False, cfdi_data, cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=9,offset=0,step=2,namespace = 'domicilio')
             # === === === === === === === ===  Mercancias  === === === === === === === ===
-            dts.indb(False, cfdi_data, cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=12,offset=0,step=0,namespace = 'mercancias')
+            dts.indb(args,False, cfdi_data, cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=12,offset=0,step=0,namespace = 'mercancias')
             # === === === === === === === ===  Mercancia  === === === === === === === ===
-            dts.indb(False, cfdi_data, cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=13,offset=0,step=0,namespace = 'mercancia')
+            dts.indb(args,False, cfdi_data, cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=13,offset=0,step=0,namespace = 'mercancia')
             # === === === === === === === ===  autotransporte  === === === === === === === ===
-            dts.indb(False, cfdi_data, cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=14,offset=0,step=0,namespace = 'autotransporte')
+            dts.indb(args,False, cfdi_data, cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=14,offset=0,step=0,namespace = 'autotransporte')
             # === === === === === === === ===  identificacion  === === === === === === === ===
-            dts.indb(False, cfdi_data, cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=15,offset=0,step=0,namespace = 'identificacion_vehicular')
-            dts.indb(False, cfdi_data, cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=16,offset=0,step=0,namespace = 'seguros')
-            dts.indb(False, cfdi_data, cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=17,offset=0,step=0,namespace = 'remolque')
-            dts.indb(False, cfdi_data, cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=18,offset=0,step=0,namespace = 'tipos_figura')
+            dts.indb(args,False, cfdi_data, cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=15,offset=0,step=0,namespace = 'identificacion_vehicular')
+            dts.indb(args,False, cfdi_data, cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=16,offset=0,step=0,namespace = 'seguros')
+            dts.indb(args,False, cfdi_data, cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=17,offset=0,step=0,namespace = 'remolque')
+            dts.indb(args,False, cfdi_data, cursor, tree,ns,cmex_api_controls_files_id,created,modified,status,element_qry,mod_element='',init=18,offset=0,step=0,namespace = 'tipos_figura')
             # === === === === === === === ===  TFD11  === === === === === === === ===
 
         else:
