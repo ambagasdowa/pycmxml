@@ -105,7 +105,7 @@ def main():
         conf.create_config(args)
         rconfig = conf.read_config()
 
-        for key,value in rconfig['db_connection'].items():
+        for key,value in rconfig['michelin'].items():
             print(key,value)
 
 
