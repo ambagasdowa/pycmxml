@@ -124,7 +124,7 @@ def parse(args,cursor, fecha):
     files_ids = []
     for filename in files:
         source = unpack + filename
-         print(f"[blue]Processing file {filename} ...")
+        print(f"[blue]Processing file {filename} ...")
         # Open,close, read file and calculate MD5 on its contents
         with open(source, 'rb') as file_to_check:
             # read contents of the file
