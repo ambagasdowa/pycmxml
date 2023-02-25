@@ -21,11 +21,11 @@ sample = """
     github = https://github.com/ambagasdowa 
 [db_connection]
     #Ip for the server 
-    server: 127.0.0.1
-    driver: ODBC Driver 17 for SQL Server
-    database: db
-    user: sa
-    password: sa
+    server= 127.0.0.1
+    driver= ODBC Driver 17 for SQL Server
+    database= db
+    user= sa
+    password= sa
 [download_config]
     token: 5365d430-32dc-4f0a-8725-905aeb373c1b
     http_path: transportescp.xsa.com.mx:9050/?/descargasCfdi
