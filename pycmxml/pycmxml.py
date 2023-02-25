@@ -141,7 +141,7 @@ def main():
                 if debug:
                     print("[blue] Execute with fecha : [blue]"+str(dt))
                 try:
-                    prf.parse(cursor, fecha=dt)
+                    prf.parse(args, cursor, fecha=dt)
                 except FileNotFoundError:
                     pass
             cursor.close()

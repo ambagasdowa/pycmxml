@@ -49,16 +49,19 @@ import pycmxml.utils.utils as lib
 import pycmxml.datasave.save as dts
 
 
-def parse(cursor, fecha):
+def parse(args,cursor, fecha):
     # === === === === === === === ===  Main Section  === === === === === === === === #
     config = conf.read_config()
+    debug = args.debug
+
     # I'm the important line
     cursor.fast_executemany = True
+    if debug:
+        print("[violet]"+"Downloading files ..."+"[violet]")
 
-    print("[violet]"+"Downloading files ..."+"[violet]")
+        for i in track(range(1), description="Cleaning storing dir ..."):
+            time.sleep(1)  # Simulate work being done
 
-    for i in track(range(1), description="Cleaning storing dir ..."):
-        time.sleep(1)  # Simulate work being done
     tmp_path = config['download_config']['download_path'] + \
     config['download_config']['dir_path']
 
@@ -79,8 +82,9 @@ def parse(cursor, fecha):
     pack = download_path+dir_path+"pack/"
     unpack = download_path+dir_path+"unpack/"
 
-    for i in track(range(1), description="Downloading xml files ..."):
-        time.sleep(1)  # Simulate work being done
+    if debug:
+        for i in track(range(1), description="Downloading xml files ..."):
+            time.sleep(1)  # Simulate work being done
 
 
 #    print ("[blue] Downloading files for date [blue]: [red]"+fecha+"[red]")
@@ -107,9 +111,10 @@ def parse(cursor, fecha):
     for file in get_files(unpack):
         files.append(file)
 
-    for i in track(range(1), description="unzipping and process files ..."):
-        time.sleep(1)  # Simulate work being done
-    print(files)
+    if debug:
+        for i in track(range(1), description="unzipping and process files ..."):
+            time.sleep(1)  # Simulate work being done
+        print(files)
 
     # build the function from hir
     # initialize files_id for post treatment
@@ -139,13 +144,17 @@ def parse(cursor, fecha):
                 md5 = True
 
         if(md5 != True):
-            print("[blue] save file : "+str(source)+"[blue]")
+
+            if debug:
+                print("[blue] save file : "+str(source)+"[blue]")
             insert_file = 'insert into sistemas.dbo.cmex_api_controls_files \
             (labelname,_filename,_md5sum,created,modified,_status) values( \
             ?,?,?,?,?,? \
             )'
-            for i in track(range(2), description="Saving to Complement data to database..."):
-                time.sleep(1)  # Simulate work being done
+
+            if debug:
+                for i in track(range(2), description="Saving to Complement data to database..."):
+                    time.sleep(1)  # Simulate work being done
 
             count = cursor.execute(insert_file, save_file)
             cursor.commit()
@@ -157,8 +166,10 @@ def parse(cursor, fecha):
             cmex_api_controls_files_id = cursor.fetchone()[0]
             cursor.commit()
             files_ids.append(str(cmex_api_controls_files_id))
-            print("[red]cmex_api_controls_files_id : " + \
-                  str(cmex_api_controls_files_id)+"[red]")
+
+            if debug:
+                print("[red]cmex_api_controls_files_id : " + \
+                      str(cmex_api_controls_files_id)+"[red]")
 
     # params = cmex_api_controls_files_id , source
 
@@ -166,7 +177,9 @@ def parse(cursor, fecha):
             # First get the general information
             # path xml que queremos transformar
             path_xml = source
-            print("[blue] Start CartaPorte20 DATA  XTRACTION [blue]")
+
+            if debug:
+                print("[blue] Start CartaPorte20 DATA  XTRACTION [blue]")
             tree = ET.parse(source)
             # getting the parent tag of
             # the xml document
@@ -180,7 +193,8 @@ def parse(cursor, fecha):
             # transformer = CFDI40SAXHandler().use_concepts_cfdi40()  # Cfdi 4.0
             cfdi_data = transformer.transform_from_file(path_xml)
 
-            print("[blue] Start CFDI DATA XTRACTION [blue]")
+            if debug:
+                print("[blue] Start CFDI DATA XTRACTION [blue]")
 
             complements_items = ['version', 'serie', 'folio', 'fecha', 'no_certificado', 'subtotal', 'descuento', 'total', 'moneda', 'tipo_cambio', 'tipo_comprobante', 'metodo_pago', 'forma_pago',
                                  'condiciones_pago', 'exportacion', 'lugar_expedicion', 'sello', 'certificado']
@@ -217,8 +231,10 @@ def parse(cursor, fecha):
 
             insert = "insert into sistemas.dbo.cmex_api_cfdi_comprobante(cmex_api_controls_files_id, version, serie, folio, fecha,no_certificado, subtotal, descuento, total, moneda,tipo_cambio, tipo_comprobante, metodo_pago, forma_pago ,condiciones_pago,exportacion, lugar_expedicion, sello, certificado ,cmex_api_standings_id,cmex_api_parents_id, created, modified, _status) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
             # NOTE Working from hir
-            for i in track(range(2), description="Saving to Complement data to database..."):
-                time.sleep(1)  # Simulate work being done
+
+            if debug:
+                for i in track(range(2), description="Saving to Complement data to database..."):
+                    time.sleep(1)  # Simulate work being done
 
             count = cursor.execute(insert, save_complement)
             cursor.commit()
@@ -231,8 +247,10 @@ def parse(cursor, fecha):
             # print("[red]"+str(comprobante_last_id)+"[red]")
 
             # === === === === === === === ===  Tfd11 === === === === === === === ===
-            print("[blue] Start TFD11 DATA  XTRACTION [blue]")
-            print(cfdi_data['tfd11'])
+
+            if debug:
+                print("[blue] Start TFD11 DATA  XTRACTION [blue]")
+                print(cfdi_data['tfd11'])
 
             tfd_elements = [
                 'version', 'no_certificado_sat'                , 'uuid'                , 'fecha_timbrado'                , 'rfc_prov_cert'                , 'sello_cfd'                , 'sello_sat'
@@ -261,8 +279,9 @@ def parse(cursor, fecha):
                 ,_status \
                 ) values(?,?,?,?,?,?,?,?,?,?,?,?,?)'
 
-            for i in track(range(2), description="Saving to TimbreFiscal data to database..."):
-                time.sleep(1)  # Simulate work being done
+            if debug:
+                for i in track(range(2), description="Saving to TimbreFiscal data to database..."):
+                    time.sleep(1)  # Simulate work being done
 
             cursor.execute(tfd_insert, save_tfd)
             cursor.commit()

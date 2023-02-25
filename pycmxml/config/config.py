@@ -18,38 +18,38 @@ sample = """
     author = Jesus Baizabal
     mail = baizabal.jesus@gmail.com
     url = baizabal.xyz
-    github = https://github.com/ambagasdowa 
+    github = https=//github.com/ambagasdowa 
 [db_connection]
     #Ip for the server 
-    server: 127.0.0.1
-    driver: ODBC Driver 17 for SQL Server
-    database: db
-    user: sa
-    password: sa
+    server= 127.0.0.1
+    driver= ODBC Driver 17 for SQL Server
+    database= db
+    user= sa
+    password= sa
 [download_config]
-    token: 5365d430-32dc-4f0a-8725-905aeb373c1b
-    http_path: transportescp.xsa.com.mx:9050/?/descargasCfdi
-    download_path: /tmp/
-    dir_path: gst_xml/
-    filename: cfdi_?.zip
+    token= 5365d430-32dc-4f0a-8725-905aeb373c1b
+    http_path= transportescp.xsa.com.mx=9050/?/descargasCfdi
+    download_path= /tmp/
+    dir_path= gst_xml/
+    filename= cfdi_?.zip
 [service_params]
     # can be [XML,PDF,ACUSE]
-    representacion: XML
+    representacion= XML
     #[0-100] defaults 50
-    pageSize: 100
-    # same as params default is ? that means:yesterday
-    fecha: '2022-12-06:2022-12-12'
-    #        fecha: '2022-12-06'
+    pageSize= 100
+    # same as params default is ? that means=yesterday
+    fecha= '2022-12-06=2022-12-12'
+    #        fecha= '2022-12-06'
     #fechaInicial => yyy-mm-dd | ? take argument from command line
-    fechaInicial: '?'
-    fechaFinal: '?'
-    serie: ''
+    fechaInicial= '?'
+    fechaFinal= '?'
+    serie= ''
     # int
-    folioEspecifico: ''
-    folioInicial: ''
-    folioFinal: ''
+    folioEspecifico= ''
+    folioInicial= ''
+    folioFinal= ''
     # 2d340db1-9c08-4c97-9ca8-676dc648094e
-    uuid: ''
+    uuid= ''
 [apps]
     michelin=true
     cmex=true
