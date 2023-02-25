@@ -109,7 +109,7 @@ def main():
         # for key,value in rconfig['michelin'].items():
         #     print(key,value)
         if debug:
-            print("[green]exit?")
+            print("[green]config.py file is created ")
         exit()
 
     rconfig = conf.read_config()
