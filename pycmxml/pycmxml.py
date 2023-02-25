@@ -105,7 +105,8 @@ def main():
         conf.create_config(args)
         rconfig = conf.read_config()
 
-        print(rconfig['db_connection'])
+        for key,value in rconfig['db_connection'].items():
+            print(key,value)
 
 
         if debug:
