@@ -51,7 +51,7 @@ import pycmxml.datasave.save as dts
 
 def parse(cursor, config, fecha):
     # === === === === === === === ===  Main Section  === === === === === === === === #
-    config = prf.read_config()
+    config = conf.read_config()
     # I'm the important line
     cursor.fast_executemany = True
 
