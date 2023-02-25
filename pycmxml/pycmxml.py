@@ -107,8 +107,7 @@ def main():
             print("[green]config.py file is created ")
         exit()
 
-    rconfig = conf.read_config()
-    config = conf.configuration
+    config = conf.read_config()
     # === === === === === === === ===  Library Section  === === === === === === === === #
     if debug:
         print("[green]" + lib.camelize('initializing')+"...[green]")
@@ -131,10 +130,10 @@ def main():
             else:
                 if debug:
                     print("[red]Config[red] : [cyan]on[cyan]")
-                if (rconfig['service_params']['fecha'] == '?'):
+                if (config['service_params']['fecha'] == '?'):
                     fecha = (str(date.today() - timedelta(days=1)))
                 else:
-                    fecha = str(rconfig['service_params']['fecha'])
+                    fecha = str(config['service_params']['fecha'])
 
             expanded_dates = lib.date_expand(fecha)
 
@@ -142,7 +141,7 @@ def main():
                 if debug:
                     print("[blue] Execute with fecha : [blue]"+str(dt))
                 try:
-                    prf.parse(cursor, config, fecha=dt)
+                    prf.parse(cursor, fecha=dt)
                 except FileNotFoundError:
                     pass
             cursor.close()

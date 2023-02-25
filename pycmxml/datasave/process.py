@@ -49,7 +49,7 @@ import pycmxml.utils.utils as lib
 import pycmxml.datasave.save as dts
 
 
-def parse(cursor, config, fecha):
+def parse(cursor, fecha):
     # === === === === === === === ===  Main Section  === === === === === === === === #
     config = conf.read_config()
     # I'm the important line
