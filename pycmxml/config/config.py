@@ -1,7 +1,7 @@
 # change to more standar configuration file like yaml or ini
-# sys.path.append('/foo/bar/my_module') 
+# sys.path.append('/foo/bar/my_module')
 # import config
-#=== === === === === 
+# === === === === ===
 # appname = "pycmxml"
 # appauthor = "Ambagasdowa"
 # pycmxml_conf_dir = user_config_dir(appname)
@@ -16,7 +16,7 @@ from rich import print
 from rich.progress import track
 from rich.progress import Progress
 
-#this must be a function 
+# this must be a function
 xdir = user_config_dir('pycmxml')
 config_name = '/config.ini'
 
@@ -65,23 +65,23 @@ def create_config(args):
     # set a parameter for defaults:
     debug = args.debug
 
-
     if (os.path.exists(xdir)):
         if debug:
             print(f"path found ok {xdir}...")
     else:
         if debug:
-            print(f"[red]No path {xdir} found now create it ..." )
+            print(f"[red]No path {xdir} found now create it ...")
         os.mkdir(xdir)
 
     if os.path.isfile(f"{xdir}{config_name}"):
-       #Replace File 
-            if debug:
-                print(f"File found backing up and replace")
-            create_file()
-    else:
-        #Create File 
+       # Replace File
+        if debug:
+            print(f"File found backing up and replace")
         create_file()
+    else:
+        # Create File
+        create_file()
+
 
 def create_file():
     try:
@@ -99,14 +99,8 @@ def read_config():
 
 # === === === === === === === ===  Config Section  === === === === === === === === #
 
+
 configuration = {
-    "db_connection": {
-        "server": "10.14.17.118",
-        "driver": "ODBC Driver 17 for SQL Server",
-        "database": "sistemas",
-        "user": "sa",
-        "password": "effeta",
-    },
     "download_config": {
         "token": "5365d430-32dc-4f0a-8725-905aeb373c1b",
         "http_path": "transportescp.xsa.com.mx:9050/?/descargasCfdi",
