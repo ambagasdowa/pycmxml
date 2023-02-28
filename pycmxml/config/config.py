@@ -8,9 +8,19 @@ from rich import print
 from rich.progress import track
 from rich.progress import Progress
 
+import platform
+from pathlib import Path, PureWindowsPath
+
+# I've explicitly declared my path as being in Windows format, so I can use forward slashes in it.
+config_file = PureWindowsPath("\\config.ini")
 # this must be a function
-xdir = user_config_dir('pycmxml')
-config_name = '/config.ini'
+if platform.system() == "Linux":
+    xdir = user_config_dir('pycmxml')
+else:
+    xdir = user_data_dir('pycmxml', 'Ambagasdowa')
+# config_name = '/config.ini'
+# Convert path to the right format for the current operating system
+config_name = Path(config_file)
 
 sample = """
 [DEFAULT]
