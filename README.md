@@ -164,26 +164,46 @@ pycmxml -x app
 
 # Some Pictures
 
-### Get a Soap Response
+## Get a Soap Response
 
 ![5](img/pycmxml_get_soap.png "get a soap response")
 
-### Download zipped xml files for proccessing
+## Download zipped xml files for proccessing
 
 ![download](img/pycmxml_download_files.png "download zipped xml files")
 
-### Proccessing unziped files
+## Proccessing unziped files
 
 ![7](img/pycmxml_get_zipped_xml.png "procces xml files")
 
-### Verbose output
+## Verbose output
 
 ![verbose](img/pycmxml_get_zipped_xml_verbose.png "verbose output")
 
-### Save and proccess xml responses
+## Save and proccess xml responses
 
 ![proccess xml files ](img/pycmxml_save_and_proccess_soap_response.png "save and procces xml")
 
-### Data in databse
+## Data in database
 
-![data](img/pycmxml_saved_db_data.png "sample data in db")
+![data](img/michelin_data_db_example.png "sample data in db")
+
+# NOTES
+
+The datetime in michelin web service is in GMT(Greenwich Mean Time) and need conversion to local time
+
+| GMT         | Local Time (Mexico) |
+| ----------- | ------------------- |
+| GMT + 00:00 | GMT -06:00          |
+
+> SqlServer example
+
+```sql
+ select DATEADD(mi, DATEDIFF(mi, GETUTCDATE(), GETDATE()), dbo.tbl.value_datetime)
+```
+
+> MariaDb example
+
+```sql
+SELECT CONVERT_TZ('2016-01-01 12:00:00','+00:00','-06:00');
+```
